@@ -6,7 +6,6 @@ import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/mode-javascript";
-// import "ace-builds/src-noconflict/theme-ambiance";
 import "ace-builds/src-noconflict/theme-ambiance";
 import "ace-builds/src-noconflict/theme-dracula";
 import "ace-builds/src-noconflict/theme-gruvbox";
@@ -30,7 +29,7 @@ import "ace-builds/src-noconflict/ext-language_tools";
 
 function Editor(props) {
    function onChange(newValue) {
-      console.log("change", newValue);
+      // console.log("change", newValue);
       props.onChange(newValue);
    }
    return (

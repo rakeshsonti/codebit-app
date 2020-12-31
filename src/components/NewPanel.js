@@ -3,6 +3,8 @@ import styles from "./NewPanel.module.css";
 import toggleImg from "../images/toggle.PNG";
 import Editor from "./CodeEditor";
 import editorItems from "./EditorItems";
+import greenIcon from "../images/greenright.PNG";
+import redIcon from "../images/redcross.PNG";
 import {
    Row,
    Col,
@@ -20,6 +22,9 @@ const {
    tabList,
 } = editorItems;
 const NewPanel = () => {
+   const [userInput, setUserInput] = useState();
+   const [userOutput, setUserOutput] = useState("");
+   const [testResult, setTestResult] = useState([true, false, true, false]);
    const value = "public static vois main(String args[]);";
    const [userCode, setUserCode] = useState(value);
    const [font, setFont] = useState(10);
@@ -39,7 +44,14 @@ const NewPanel = () => {
    const [dropdownOpenEditor, setDropdownOpenEditor] = useState(false);
 
    const toggleEditor = () => setDropdownOpenEditor((prevState) => !prevState);
+   const changeInput = (e) => {
+      // console.log(e.target.value);
+      setUserInput(e.target.value);
+      // setUserOutput(e.target.value);
+   };
+
    // -------------------------------
+   // console.log(userCode);
    const [toggleProblem, setToggleProblem] = useState(true);
    const problemHead = "Sum of Array Elements ";
    const problem =
@@ -262,7 +274,41 @@ const NewPanel = () => {
                      onChange={setUserCode}
                   />
                </Col>
-               <Col lg={5} md={5} style={{ backgroundColor: "black" }}></Col>
+               <Col lg={5} md={5} className={styles.consoleContainer}>
+                  <div className={styles.consoleOutput} value={userOutput}>
+                     {userOutput}
+                  </div>
+                  <textarea
+                     className={styles.consoleInput}
+                     onChange={changeInput}
+                     value={userInput}
+                  ></textarea>
+                  <div className={styles.consoleTestcase}>
+                     {testResult.map((res, index) => {
+                        return (
+                           <div
+                              className={styles.testDiv}
+                              key={`${res}${index}`}
+                           >
+                              <h6>Test case {index + 1}</h6>
+                              {res ? (
+                                 <img
+                                    src={greenIcon}
+                                    alt="test img"
+                                    className={styles.testimg}
+                                 ></img>
+                              ) : (
+                                 <img
+                                    src={redIcon}
+                                    alt="test img"
+                                    className={styles.testimg}
+                                 ></img>
+                              )}
+                           </div>
+                        );
+                     })}
+                  </div>
+               </Col>
             </Row>
          </div>
       </div>

@@ -1,3 +1,55 @@
+/* console conatainer part */
+.consoleContainer {
+   background-color: rgba(255, 250, 250, 0.952);
+   color: rgba(3, 0, 0, 0.932);
+   display: flex;
+   flex-direction: column;
+}
+.consoleOutput {
+   height: 40%;
+   background-color: rgb(27, 27, 27);
+   width: inherit;
+   overflow: auto;
+   border: 2px solid wheat;
+   resize: both;
+   text-align: left;
+   color: rgb(250, 250, 250);
+   font-size: smaller;
+}
+.consoleInput {
+   height: 20%;
+   background-color: rgb(27, 27, 27);
+   overflow: auto;
+   resize: both;
+   border: 2px solid wheat;
+   text-align: left;
+   color: rgb(253, 253, 253);
+   font-size: smaller;
+}
+.consoleTestcase {
+   height: 40%;
+   background-color: rgb(185, 185, 185);
+   overflow: auto;
+   resize: both;
+   text-align: left;
+}
+.testDiv {
+   width: 92%;
+   height: 20%;
+   background-color: aliceblue;
+   border: 1px solid rgba(0, 0, 0, 0.952);
+   margin-top: 8px;
+   margin-left: 4%;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   text-align: center;
+   align-items: center;
+}
+.testimg {
+   width: 25px;
+   height: 25px;
+}
 /* --code editor css  */
 
 .editor {
@@ -20,7 +72,7 @@
    border: 1px solid rgba(0, 0, 0, 0.253);
    display: flex;
    flex-direction: row;
-   justify-content: start;
+   justify-content: flex-start;
 }
 .themeScroll {
    overflow: auto;
