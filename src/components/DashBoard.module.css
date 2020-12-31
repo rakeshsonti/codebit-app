@@ -1,0 +1,31 @@
+.navbar {
+   background-color: #072748;
+   width: 100% !important;
+   height: 50px;
+   justify-content: space-evenly !important;
+}
+@media only screen and (min-width: 768px) and (max-width: 899px) {
+   .navitem {
+      margin-right: 50px !important;
+      justify-content: space-between !important;
+   }
+}
+@media only screen and (min-width: 767px) {
+   .navitem {
+      margin-right: 30px !important;
+      justify-content: space-between !important;
+   }
+}
+@media only screen and (min-width: 900px) {
+   .navitem {
+      margin-right: 50px !important;
+      justify-content: space-between !important;
+   }
+}
+.container {
+   width: 100%;
+}
+.navbarstyle {
+   width: 100%;
+   /* position: fixed !important; */
+}

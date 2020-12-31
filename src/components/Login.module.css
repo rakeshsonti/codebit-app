@@ -1,0 +1,26 @@
+.container {
+   min-height: 100vh;
+   display: flex;
+   font-weight: 400;
+   font-family: sans-serif;
+   background: #12c2e9;
+   background: -webkit-linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+   background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+   justify-content: center;
+   align-items: center;
+}
+.formBackground {
+   background-color: white;
+   display: flex;
+   flex-direction: column;
+   text-align: left;
+   width: 400x;
+   padding: 40px;
+}
+.text-muted .error {
+   color: #f64f59 !important;
+   font-weight: bold;
+}
+.smallBtn {
+   font-size: x-small;
+}

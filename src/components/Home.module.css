@@ -1,0 +1,29 @@
+.container {
+   min-height: inherit;
+   background-color: rgba(131, 130, 130, 0.178);
+   width: 96%;
+   margin-left: 2%;
+}
+.card {
+   width: 150px;
+}
+.head3 {
+   margin-bottom: 15px;
+}
+
+@media only screen and (max-width: 425px) {
+   .subcontainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px !important;
+   }
+}
+@media only screen and (min-width: 426px) {
+   .subcontainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+   }
+}
