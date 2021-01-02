@@ -148,7 +148,7 @@ function DashBoard(props) {
             <Route exact path="/admin">
                <Admin />
             </Route>
-            <Route exact path="/explore">
+            <Route exact path="/explore/:topicTag">
                <Explore />
             </Route>
             <Route path="/problem/:key/:topic/:name">

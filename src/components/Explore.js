@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "reactstrap";
-import {
-   BrowserRouter as Router,
-   Route,
-   Link,
-   useHistory,
-} from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+
 import styles from "./Explore.module.css";
-const Explore = (props) => {
-   const [topicTag, setTopicTag] = useState("array");
+const Explore = () => {
+   const { topicTag } = useParams();
    const [problems, setProblems] = useState([]);
    const history = useHistory();
+
    useEffect(() => {
       console.log("history :", history);
       fetch(`http://localhost:9999/getProblemSet/${topicTag}`, {

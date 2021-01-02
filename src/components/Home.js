@@ -26,8 +26,9 @@ import {
 const Home = (props) => {
    let history = useHistory();
    console.log("history ", history);
-   const handlerClick = () => {
-      history.push("/explore");
+   const handlerClick = (tag) => {
+      const str = `/explore/${tag}`;
+      history.push(str);
    };
    return (
       <div className={styles.container}>
@@ -38,11 +39,13 @@ const Home = (props) => {
                <Card className={styles.card}>
                   <CardImg top src={Array} alt="array img" />
                   <CardFooter>
-                     <Link to="/explore">
+                     <Link to="/explore/array">
                         <Button
                            variant="outline-dark"
                            size="sm"
-                           onClick={handlerClick}
+                           onClick={() => {
+                              handlerClick("array");
+                           }}
                         >
                            array
                         </Button>

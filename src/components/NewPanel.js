@@ -356,9 +356,13 @@ const NewPanel = () => {
             <Button size="sm">reset</Button>
 
             <div style={{ color: "white" }}>.....</div>
-            <Button size="sm">run</Button>
+            <Button color="primary" size="sm">
+               run
+            </Button>
             <div style={{ color: "white" }}>.....</div>
-            <Button size="sm">submit</Button>
+            <Button color="primary" size="sm">
+               submit
+            </Button>
          </div>
 
          {/* main editor------------------------ */}
