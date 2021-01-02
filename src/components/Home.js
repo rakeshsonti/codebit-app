@@ -14,126 +14,148 @@ import Recursion from "../images/recursion.PNG";
 import Hashing from "../images/hashing.PNG";
 import Explore from "./Explore";
 import { Card, Button, CardImg, CardFooter } from "reactstrap";
-const Home = () => {
+import {
+   BrowserRouter as Router,
+   Switch,
+   Route,
+   Link,
+   Redirect,
+   useHistory,
+} from "react-router-dom";
+
+const Home = (props) => {
+   let history = useHistory();
+   console.log("history ", history);
+   const handlerClick = () => {
+      history.push("/explore");
+   };
    return (
       <div className={styles.container}>
          <h4 className={styles.head3}>Data Structure & Algorithms</h4>
          <hr />
-         <div className={styles.subcontainer}>
-            <Card className={styles.card}>
-               <CardImg top src={Array} alt="array img" />
-               <CardFooter>
-                  <Button variant="outline-dark" size="sm" onClick={Explore}>
-                     array
-                  </Button>
-               </CardFooter>
-            </Card>
-            <Card className={styles.card}>
-               <CardImg top src={LinkedList} alt="linkedlist img" />
-               <CardFooter>
-                  <Button variant="outline-dark" size="sm">
-                     linkedlist
-                  </Button>
-               </CardFooter>
-            </Card>
-            <Card className={styles.card}>
-               <CardImg top src={Stack} alt="stack img" />
-               <CardFooter>
-                  <Button variant="outline-dark" size="sm">
-                     stack
-                  </Button>
-               </CardFooter>
-            </Card>
-         </div>
-         <br />
-         {/* //--------------------------------------------------------- */}
-         <div className={styles.subcontainer}>
-            <Card className={styles.card}>
-               <CardImg top src={Queue} alt="queue img" />
-               <CardFooter>
-                  <Button variant="outline-dark" size="sm">
-                     queue
-                  </Button>
-               </CardFooter>
-            </Card>
-            <Card className={styles.card}>
-               <CardImg top src={Tree} alt="tree img" />
-               <CardFooter>
-                  <Button variant="outline-dark" size="sm">
-                     tree
-                  </Button>
-               </CardFooter>
-            </Card>
-            <Card className={styles.card}>
-               <CardImg top src={Heap} alt="heap img" />
-               <CardFooter>
-                  <Button variant="outline-dark" size="sm">
-                     heap
-                  </Button>
-               </CardFooter>
-            </Card>
-         </div>
-         <br />
+         <Router>
+            <div className={styles.subcontainer}>
+               <Card className={styles.card}>
+                  <CardImg top src={Array} alt="array img" />
+                  <CardFooter>
+                     <Link to="/explore">
+                        <Button
+                           variant="outline-dark"
+                           size="sm"
+                           onClick={handlerClick}
+                        >
+                           array
+                        </Button>
+                     </Link>
+                  </CardFooter>
+               </Card>
+               <Card className={styles.card}>
+                  <CardImg top src={LinkedList} alt="linkedlist img" />
+                  <CardFooter>
+                     <Button variant="outline-dark" size="sm">
+                        linkedlist
+                     </Button>
+                  </CardFooter>
+               </Card>
+               <Card className={styles.card}>
+                  <CardImg top src={Stack} alt="stack img" />
+                  <CardFooter>
+                     <Button variant="outline-dark" size="sm">
+                        stack
+                     </Button>
+                  </CardFooter>
+               </Card>
+            </div>
+            <br />
+            {/* //--------------------------------------------------------- */}
+            <div className={styles.subcontainer}>
+               <Card className={styles.card}>
+                  <CardImg top src={Queue} alt="queue img" />
+                  <CardFooter>
+                     <Button variant="outline-dark" size="sm">
+                        queue
+                     </Button>
+                  </CardFooter>
+               </Card>
+               <Card className={styles.card}>
+                  <CardImg top src={Tree} alt="tree img" />
+                  <CardFooter>
+                     <Button variant="outline-dark" size="sm">
+                        tree
+                     </Button>
+                  </CardFooter>
+               </Card>
+               <Card className={styles.card}>
+                  <CardImg top src={Heap} alt="heap img" />
+                  <CardFooter>
+                     <Button variant="outline-dark" size="sm">
+                        heap
+                     </Button>
+                  </CardFooter>
+               </Card>
+            </div>
+            <br />
 
-         {/* //---------------------------------------------- */}
-         <div className={styles.subcontainer}>
-            <Card className={styles.card}>
-               <CardImg top src={Matrix} alt="Matrix img" />
-               <CardFooter>
-                  <Button variant="outline-dark" size="sm">
-                     matrix
-                  </Button>
-               </CardFooter>
-            </Card>
-            <Card className={styles.card}>
-               <CardImg top src={Graph} alt="Graph img" />
-               <CardFooter>
-                  <Button variant="outline-dark" size="sm">
-                     graph
-                  </Button>
-               </CardFooter>
-            </Card>
-            <Card className={styles.card}>
-               <CardImg top src={Searching} alt="Searching img" />
-               <CardFooter>
-                  <Button variant="outline-dark" size="sm">
-                     searching
-                  </Button>
-               </CardFooter>
-            </Card>
-         </div>
-         <br />
+            {/* //---------------------------------------------- */}
+            <div className={styles.subcontainer}>
+               <Card className={styles.card}>
+                  <CardImg top src={Matrix} alt="Matrix img" />
+                  <CardFooter>
+                     <Button variant="outline-dark" size="sm">
+                        matrix
+                     </Button>
+                  </CardFooter>
+               </Card>
+               <Card className={styles.card}>
+                  <CardImg top src={Graph} alt="Graph img" />
+                  <CardFooter>
+                     <Button variant="outline-dark" size="sm">
+                        graph
+                     </Button>
+                  </CardFooter>
+               </Card>
+               <Card className={styles.card}>
+                  <CardImg top src={Searching} alt="Searching img" />
+                  <CardFooter>
+                     <Button variant="outline-dark" size="sm">
+                        searching
+                     </Button>
+                  </CardFooter>
+               </Card>
+            </div>
+            <br />
 
-         {/* //---------------------------------------------- */}
-         <div className={styles.subcontainer}>
-            <Card className={styles.card}>
-               <CardImg top src={Sorting} alt="Sorting img" />
-               <CardFooter>
-                  <Button variant="outline-dark" size="sm">
-                     sorting
-                  </Button>
-               </CardFooter>
-            </Card>
-            <Card className={styles.card}>
-               <CardImg top src={Recursion} alt="Recursion img" />
-               <CardFooter>
-                  <Button variant="outline-dark" size="sm">
-                     recursion
-                  </Button>
-               </CardFooter>
-            </Card>
-            <Card className={styles.card}>
-               <CardImg top src={Hashing} alt="Hashing img" />
-               <CardFooter>
-                  <Button variant="outline-dark" size="sm">
-                     hashing
-                  </Button>
-               </CardFooter>
-            </Card>
-         </div>
-         <br />
+            {/* //---------------------------------------------- */}
+            <div className={styles.subcontainer}>
+               <Card className={styles.card}>
+                  <CardImg top src={Sorting} alt="Sorting img" />
+                  <CardFooter>
+                     <Button variant="outline-dark" size="sm">
+                        sorting
+                     </Button>
+                  </CardFooter>
+               </Card>
+               <Card className={styles.card}>
+                  <CardImg top src={Recursion} alt="Recursion img" />
+                  <CardFooter>
+                     <Button variant="outline-dark" size="sm">
+                        recursion
+                     </Button>
+                  </CardFooter>
+               </Card>
+               <Card className={styles.card}>
+                  <CardImg top src={Hashing} alt="Hashing img" />
+                  <CardFooter>
+                     <Button variant="outline-dark" size="sm">
+                        hashing
+                     </Button>
+                  </CardFooter>
+               </Card>
+            </div>
+            <br />
 
-         {/* //---------------------------------------------- */}
+            {/* //---------------------------------------------- */}
+         </Router>
       </div>
    );
 };

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./NewPanel.module.css";
 import toggleImg from "../images/toggle.PNG";
 import Editor from "./CodeEditor";
 import editorItems from "./EditorItems";
 import greenIcon from "../images/greenright.PNG";
 import redIcon from "../images/redcross.PNG";
+import { useHistory, useParams } from "react-router-dom";
 import {
    Row,
    Col,
@@ -23,6 +24,72 @@ const {
    tabList,
 } = editorItems;
 const NewPanel = () => {
+   let problems = {};
+   const { key, topic } = useParams();
+   const history = useHistory();
+   const [topicTag, setTopicTag] = useState();
+   const [problemHead, setProblemHead] = useState();
+   const [problem, setProblem] = useState();
+   const [input, setInput] = useState();
+   const [input1, setInput1] = useState();
+   const [input2, setInput2] = useState();
+   const [output, setOutput] = useState();
+   const [output1, setOutput1] = useState();
+   const [output2, setOutput2] = useState();
+   const [point, setPoint] = useState();
+   const [spaceComplexity, setSpaceComplexity] = useState();
+   const [timeComplexity, setTimeComplexity] = useState();
+   const [level, setLevel] = useState();
+   const [task, setTask] = useState();
+   const [constraints, setConstraints] = useState();
+
+   useEffect(() => {
+      fetch(`http://localhost:9999/getProblem/${topic}/${key}`, {
+         method: "POST",
+         credentials: "include",
+      })
+         .then((r) => {
+            return r.json();
+         })
+         .then((r) => {
+            // setProblems(r);
+            problems = [...r];
+            let {
+               topicTag,
+               problemHead,
+               problem,
+               input,
+               input1,
+               input2,
+               output,
+               output1,
+               output2,
+               point,
+               spaceComplexity,
+               timeComplexity,
+               problemLevel,
+               task,
+               constraints,
+            } = r[0];
+            console.log("r value :", r);
+            setTopicTag(topicTag);
+            setProblemHead(problemHead);
+            setProblem(problem);
+            setInput(input);
+            setInput1(input1);
+            setInput2(input2);
+            setOutput(output);
+            setOutput1(output1);
+            setOutput2(output2);
+            setPoint(point);
+            setSpaceComplexity(spaceComplexity);
+            setTimeComplexity(timeComplexity);
+            setLevel(problemLevel);
+            setTask(task);
+            setConstraints(constraints);
+         });
+   }, []);
+   // console.log("ques key : ", questionKey);
    const [userInput, setUserInput] = useState();
    const [userOutput, setUserOutput] = useState("");
    const [testResult, setTestResult] = useState([true, false, true, false]);
@@ -77,25 +144,18 @@ const NewPanel = () => {
    // -------------------------------
    // console.log(userCode);
    const [toggleProblem, setToggleProblem] = useState(true);
-   const problemHead = "Sum of Array Elements ";
-   const problem =
-      "Given an integer array arr of size n, you need to sum the elements of arr.";
-   const input1 = "n = 3 \n arr[] = {3 2 1}";
-   const output1 = "6";
-   const input2 = "n = 4 arr[] = {1 2 3 4}";
-   const output2 = "10";
-   const task =
-      "You need to complete the function sumElement() that takes arr and n and returns the sum. The printing is done by the driver code.";
-   const constraints = "1 <= n <= 103 1 <= arri <= 104";
-   const timeComplexity = "O(n)";
-   const spaceComplexity = "O(1)";
-   const problemLevel = "Easy";
-   // const totalSubmission = 123;
-   const topicTag = "array";
-   const point = 12;
    return (
       <div className={styles.container}>
          <div className={styles.toggle}>
+            <Button
+               color="link"
+               size="sm"
+               onClick={() => {
+                  history.goBack();
+               }}
+            >
+               back
+            </Button>
             <img
                alt="toggle alt"
                className={styles.toggleImg}
@@ -111,13 +171,23 @@ const NewPanel = () => {
                <div className={styles.body}>
                   <h6 className={styles.proHead}>{problemHead}</h6>
                   <div className={styles.row1}>
-                     <div>Level : -{problemLevel}</div>
-                     <div>Topic Tag : -{topicTag}</div>
-                     <div>Point: -{point}</div>
+                     <div>Level : {level}</div>
+                     <div>Topic Tag : {topicTag}</div>
+                     <div>Point: {point}</div>
                   </div>
                   <hr className={styles.line} />
                   <div className={styles.subcontainer}>
                      <p>{problem}</p>
+                     <div className={styles.h7}>
+                        Basic info (Input and Output) :
+                     </div>{" "}
+                     <div className={styles.input}>
+                        <div className={styles.h7}>Input </div>
+                        <div>{input}</div>
+                        <div className={styles.h7}>Output </div>
+                        <div>{output}</div>
+                     </div>
+                     <br />
                      <div className={styles.h7}>Example :</div>{" "}
                      <div className={styles.input}>
                         <div className={styles.h7}>Input 1</div>
@@ -133,7 +203,6 @@ const NewPanel = () => {
                         <div className={styles.h7}>Output 2</div>
                         <div>{output2}</div>
                      </div>
-                     <button onClick={() => run()}>click</button>
                      <br />
                      <div className={styles.h7}>Your Task:</div>
                      <div>{task}</div>

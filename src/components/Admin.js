@@ -6,6 +6,8 @@ const Admin = (props) => {
    const [questionKey, setQuestionKey] = useState();
    const [problemHead, setProblemHead] = useState();
    const [problem, setProblem] = useState();
+   const [input, setInput] = useState();
+   const [output, setOutput] = useState();
    const [input1, setInput1] = useState();
    const [input2, setInput2] = useState();
    const [output1, setOutput1] = useState();
@@ -26,6 +28,8 @@ const Admin = (props) => {
             questionKey,
             problemHead,
             problem,
+            input,
+            output,
             input1,
             input2,
             output1,
@@ -118,6 +122,24 @@ const Admin = (props) => {
                   className={styles.rightItem}
                   onChange={(e) => setProblem(e.target.value)}
                   value={problem}
+               ></textarea>
+            </div>
+            <div className={styles.subContainer}>
+               {" "}
+               <label className={styles.leftItem}>Input</label>
+               <textarea
+                  className={styles.rightItem}
+                  onChange={(e) => setInput(e.target.value)}
+                  value={input}
+               ></textarea>
+            </div>
+            <div className={styles.subContainer}>
+               {" "}
+               <label className={styles.leftItem}>Output</label>
+               <textarea
+                  className={styles.rightItem}
+                  onChange={(e) => setOutput(e.target.value)}
+                  value={output}
                ></textarea>
             </div>
             <div className={styles.subContainer}>

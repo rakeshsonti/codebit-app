@@ -1,11 +1,77 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "reactstrap";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+   BrowserRouter as Router,
+   Route,
+   Link,
+   useHistory,
+} from "react-router-dom";
 import styles from "./Explore.module.css";
 const Explore = (props) => {
+   const [topicTag, setTopicTag] = useState("array");
+   const [problems, setProblems] = useState([]);
+   const history = useHistory();
+   useEffect(() => {
+      console.log("history :", history);
+      fetch(`http://localhost:9999/getProblemSet/${topicTag}`, {
+         method: "POST",
+         credentials: "include",
+      })
+         .then((r) => {
+            return r.json();
+         })
+         .then((r) => {
+            setProblems(r);
+         });
+   }, []);
+   console.log("problem set", problems);
+
    return (
       <div className={styles.container}>
-         <Router></Router>
+         <div className={styles.btn}>
+            <Button
+               color="link"
+               onClick={() => {
+                  history.goBack();
+               }}
+            >
+               back
+            </Button>
+         </div>
+         {/* --------------problem div */}
+         <div className={styles.header}>
+            <h6 className={styles.subheader}>Tag : {topicTag}</h6>
+         </div>
+         {problems.map((arr, index) => {
+            return (
+               <div className={styles.problemDiv} key={arr["questionKey"]}>
+                  <div className={styles.h7}>
+                     <h6 style={{ color: "green" }}>Problem : {index + 1}</h6>
+                     <p>Level : {arr["problemLevel"]}</p>
+                  </div>
+                  <div className={styles.h7}>
+                     <h6>{arr["problemHead"]}</h6>
+                     <p>Point : {arr["point"]}</p>
+                  </div>
+                  <p>{arr["problem"]}</p>
+
+                  <Button
+                     size="sm"
+                     color="primary"
+                     className={styles.problemBtn}
+                     onClick={() => {
+                        history.push(
+                           `/problem/${arr["questionKey"]}/${arr["topicTag"]}/${arr["problemHead"]}`
+                        );
+                     }}
+                  >
+                     start
+                  </Button>
+
+                  <hr />
+               </div>
+            );
+         })}
       </div>
    );
 };

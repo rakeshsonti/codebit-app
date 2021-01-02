@@ -96,14 +96,15 @@
 /* --------------------------------------------below problem */
 .toggle {
    width: 98%;
-   height: 20px;
+   height: 24px;
    background-color: white;
    margin-top: 10px;
    margin-left: 1%;
    border: 1px solid rgba(0, 0, 0, 0.253);
    display: flex;
-   flex-direction: row-reverse;
-   justify-content: right;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
 }
 .container {
    background-color: rgba(255, 255, 255, 0);
