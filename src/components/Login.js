@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+
 import styles from "./Login.module.css";
-import Signup from "./Signup";
 const Login = (props) => {
+   const [email, setEmail] = useState();
+   const [password, setPassword] = useState();
+   const onChangeEmail = (e) => {
+      setEmail(e.target.value);
+   };
+   const onChangePassword = (e) => {
+      setPassword(e.target.value);
+   };
+
+   const localHandler = (e) => {
+      e.preventDefault();
+      props.LoginHandler(email, password);
+   };
    return (
       <div className={styles.container}>
-         <Form className={styles.formBackground}>
+         <Form className={styles.formBackground} onSubmit={localHandler}>
             <FormGroup>
                <Label for="Email">Email</Label>
                <Input
@@ -13,6 +26,8 @@ const Login = (props) => {
                   name="email"
                   id="emailId"
                   placeholder="Enter your Email"
+                  onChange={onChangeEmail}
+                  required
                />
             </FormGroup>
             <FormGroup>
@@ -22,21 +37,19 @@ const Login = (props) => {
                   name="password"
                   id="examplePassword"
                   placeholder="Enter your password"
+                  onChange={onChangePassword}
+                  required
                />
             </FormGroup>
             <FormGroup>
-               <FormText className={styles.error}></FormText>
+               <p className={styles.error}>{props.error}</p>
             </FormGroup>
-            <Button className={styles.button}>login</Button>{" "}
+            <Button className={styles.button} type="submit">
+               login
+            </Button>{" "}
             <FormGroup className={styles.smallBtn}>
                create an account?
-               <Button
-                  color="link"
-                  size="sm"
-                  onClick={() => {
-                     <Signup />;
-                  }}
-               >
+               <Button color="link" size="sm" onClick={props.showHandler}>
                   sign up
                </Button>
             </FormGroup>

@@ -17,9 +17,10 @@ import LeaderBoard from "./LeaderBoard";
 import NewPanel from "./NewPanel";
 import Profile from "./Profile";
 import Logout from "./Logout";
+import Admin from "./Admin";
 class DashBoard extends React.Component {
-   constructor() {
-      super();
+   constructor(props) {
+      super(props);
       this.state = {
          isOpen: false,
       };
@@ -30,6 +31,7 @@ class DashBoard extends React.Component {
          isOpen: !this.state.isOpen,
       });
    };
+
    render() {
       return (
          <div>
@@ -117,14 +119,27 @@ class DashBoard extends React.Component {
                            </NavLink>
                         </NavItem>
                         <NavItem>
-                           <NavLink to="/logout">
+                           {/* <NavLink to="/logout"> */}
+                           <Button
+                              outline
+                              color="danger"
+                              size="sm"
+                              className={styles.navitem}
+                              onClick={this.props.logoutHandler}
+                           >
+                              Log out
+                           </Button>
+                           {/* </NavLink> */}
+                        </NavItem>
+                        <NavItem>
+                           <NavLink to="/admin">
                               <Button
                                  outline
-                                 color="danger"
+                                 color="success"
                                  size="sm"
                                  className={styles.navitem}
                               >
-                                 Log out
+                                 Admin
                               </Button>
                            </NavLink>
                         </NavItem>
@@ -151,7 +166,10 @@ class DashBoard extends React.Component {
                   <Profile />
                </Route>
                <Route exact path="/logout">
-                  <Logout />
+                  {/* <Logout /> */}
+               </Route>
+               <Route exact path="/admin">
+                  <Admin />
                </Route>
                {/* </Switch> */}
             </Router>

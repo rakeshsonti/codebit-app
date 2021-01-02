@@ -12,6 +12,7 @@ import Searching from "../images/searching.PNG";
 import Sorting from "../images/sorting.PNG";
 import Recursion from "../images/recursion.PNG";
 import Hashing from "../images/hashing.PNG";
+import Explore from "./Explore";
 import { Card, Button, CardImg, CardFooter } from "reactstrap";
 const Home = () => {
    return (
@@ -22,7 +23,7 @@ const Home = () => {
             <Card className={styles.card}>
                <CardImg top src={Array} alt="array img" />
                <CardFooter>
-                  <Button variant="outline-dark" size="sm">
+                  <Button variant="outline-dark" size="sm" onClick={Explore}>
                      array
                   </Button>
                </CardFooter>

@@ -1,0 +1,25 @@
+.container {
+   display: flex;
+   flex-direction: column;
+   width: 80%;
+   background-color: rgb(197, 195, 192);
+   margin-left: 10%;
+   font-size: small;
+}
+.subContainer {
+   display: flex;
+   flex-direction: row;
+   margin-bottom: 10px;
+}
+.leftItem {
+   margin-right: 20px;
+   text-align: center;
+   margin-top: 10px;
+   margin-left: 20px;
+   font-weight: bold;
+   width: 10%;
+}
+.rightItem {
+   width: 70%;
+   resize: both;
+}

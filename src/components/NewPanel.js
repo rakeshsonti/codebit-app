@@ -12,6 +12,7 @@ import {
    DropdownToggle,
    DropdownMenu,
    DropdownItem,
+   Button,
 } from "reactstrap";
 const {
    allLanguaue,
@@ -50,6 +51,29 @@ const NewPanel = () => {
       // setUserOutput(e.target.value);
    };
 
+   const run = () => {
+      fetch("http://localhost:9999/run", {
+         method: "POST",
+         body: JSON.stringify({
+            sourceCode: userCode,
+            language: language,
+            input: userInput,
+         }),
+         headers: {
+            "Content-Type": "application/json",
+         },
+      })
+         .then((r) => {
+            return r.JSON();
+            // console.log(r.JSON());
+            // setUserOutput("ram is great\r\n260\r\n");
+         })
+         .then((r) => console.log(r))
+         .catch((e) => {
+            console.log(e);
+         });
+   };
+
    // -------------------------------
    // console.log(userCode);
    const [toggleProblem, setToggleProblem] = useState(true);
@@ -77,6 +101,7 @@ const NewPanel = () => {
                className={styles.toggleImg}
                onClick={() => {
                   setToggleProblem(!toggleProblem);
+                  // setUserOutput("ram is great\r\n260\r\n");
                }}
                src={toggleImg}
             />
@@ -108,6 +133,7 @@ const NewPanel = () => {
                         <div className={styles.h7}>Output 2</div>
                         <div>{output2}</div>
                      </div>
+                     <button onClick={() => run()}>click</button>
                      <br />
                      <div className={styles.h7}>Your Task:</div>
                      <div>{task}</div>
@@ -257,6 +283,13 @@ const NewPanel = () => {
                   </div>
                </DropdownMenu>
             </Dropdown>
+            <div style={{ color: "white" }}>.....</div>
+            <Button size="sm">reset</Button>
+
+            <div style={{ color: "white" }}>.....</div>
+            <Button size="sm">run</Button>
+            <div style={{ color: "white" }}>.....</div>
+            <Button size="sm">submit</Button>
          </div>
 
          {/* main editor------------------------ */}
@@ -275,9 +308,13 @@ const NewPanel = () => {
                   />
                </Col>
                <Col lg={5} md={5} className={styles.consoleContainer}>
-                  <div className={styles.consoleOutput} value={userOutput}>
+                  <textarea
+                     className={styles.consoleOutput}
+                     value={userOutput}
+                     disabled
+                  >
                      {userOutput}
-                  </div>
+                  </textarea>
                   <textarea
                      className={styles.consoleInput}
                      onChange={changeInput}

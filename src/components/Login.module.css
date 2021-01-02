@@ -17,9 +17,18 @@
    width: 400x;
    padding: 40px;
 }
-.text-muted .error {
-   color: #f64f59 !important;
+.success {
+   color: rgb(39, 134, 7);
    font-weight: bold;
+   /* background-color: rgb(116, 247, 73); */
+   font-size: small;
+}
+.error {
+   color: #f50606cc !important;
+   font-weight: bold;
+   /* background-color: rgb(229, 255, 31); */
+   font-size: small;
+   /* word-wrap: normal; */
 }
 .smallBtn {
    font-size: x-small;

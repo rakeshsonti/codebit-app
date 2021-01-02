@@ -1,11 +1,27 @@
-import React from "react";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import React, { useState } from "react";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import styles from "./Login.module.css";
-import Login from "./Login";
 const Signup = (props) => {
+   const [name, setName] = useState();
+   const [email, setEmail] = useState();
+   const [password, setPassword] = useState();
+   const onChangeName = (e) => {
+      setName(e.target.value);
+   };
+   const onChangeEmail = (e) => {
+      setEmail(e.target.value);
+   };
+   const onChangePassword = (e) => {
+      setPassword(e.target.value);
+   };
+
+   const localHandler = (e) => {
+      e.preventDefault();
+      props.SignupHandler(name, email, password);
+   };
    return (
       <div className={styles.container}>
-         <Form className={styles.formBackground}>
+         <Form className={styles.formBackground} onSubmit={localHandler}>
             <FormGroup>
                <Label for="name">Name</Label>
                <Input
@@ -13,6 +29,8 @@ const Signup = (props) => {
                   name="name"
                   id="name"
                   placeholder="Enter your name"
+                  onChange={onChangeName}
+                  required
                />
             </FormGroup>
             <FormGroup>
@@ -22,6 +40,8 @@ const Signup = (props) => {
                   name="email"
                   id="emailId"
                   placeholder="Enter your Email"
+                  onChange={onChangeEmail}
+                  required
                />
             </FormGroup>
             <FormGroup>
@@ -31,23 +51,21 @@ const Signup = (props) => {
                   name="password"
                   id="examplePassword"
                   placeholder="Enter your password"
+                  onChange={onChangePassword}
+                  required
                />
             </FormGroup>
-            <FormGroup>
-               <FormText className={styles.error}></FormText>
-            </FormGroup>
-            <Button className={styles.button}>sign up</Button>{" "}
+            <Button className={styles.button} type="submit">
+               sign up
+            </Button>{" "}
             <FormGroup className={styles.smallBtn}>
                have an account?
-               <Button
-                  color="link"
-                  size="sm"
-                  onClick={() => {
-                     <Login />;
-                  }}
-               >
+               <Button color="link" size="sm" onClick={props.showHandler}>
                   sign in
                </Button>
+            </FormGroup>
+            <FormGroup>
+               <p className={styles.error}>{props.error}</p>
             </FormGroup>
          </Form>
       </div>
