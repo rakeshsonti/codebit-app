@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "reactstrap";
 import { useHistory, useParams } from "react-router-dom";
 
@@ -7,7 +7,6 @@ const Explore = () => {
    const { topicTag } = useParams();
    const [problems, setProblems] = useState([]);
    const history = useHistory();
-
    useEffect(() => {
       console.log("history :", history);
       fetch(`http://localhost:9999/getProblemSet/${topicTag}`, {
@@ -21,7 +20,7 @@ const Explore = () => {
             setProblems(r);
          });
    }, []);
-   console.log("problem set", problems);
+   console.log("problems", problems);
 
    return (
       <div className={styles.container}>

@@ -25,6 +25,7 @@ const {
 } = editorItems;
 const NewPanel = () => {
    let problems = {};
+   let initialLoadData = {};
    const { key, topic } = useParams();
    const history = useHistory();
    const [topicTag, setTopicTag] = useState();
@@ -89,15 +90,14 @@ const NewPanel = () => {
             setConstraints(constraints);
          });
    }, []);
-   // console.log("ques key : ", questionKey);
    const [userInput, setUserInput] = useState();
    const [userOutput, setUserOutput] = useState("");
-   const [testResult, setTestResult] = useState([true, false, true, false]);
-   const value = "public static vois main(String args[]);";
-   const [userCode, setUserCode] = useState(value);
-   const [font, setFont] = useState(10);
-   const [tab, setTab] = useState(4);
-   const [language, setLanguage] = useState("java");
+   const [testResult, setTestResult] = useState([false, false, false, false]);
+   // const value = "";
+   const [userCode, setUserCode] = useState();
+   const [font, setFont] = useState(14);
+   const [tab, setTab] = useState(2);
+   const [language, setLanguage] = useState();
    const [theme, setTheme] = useState("monokai");
    const [editor, setEditor] = useState("vscode");
    const [dropdownOpenFont, setDropdownOpenFont] = useState(false);
@@ -117,31 +117,246 @@ const NewPanel = () => {
       setUserInput(e.target.value);
       // setUserOutput(e.target.value);
    };
-
-   const run = () => {
-      fetch("http://localhost:9999/run", {
+   //----------------run test cases----------------
+   const submit = async () => {
+      // console.log("chla submit");
+      let adminResult = await fetch("http://localhost:9999/runTestCase", {
          method: "POST",
          body: JSON.stringify({
-            sourceCode: userCode,
-            language: language,
             input: userInput,
+            currentLanguage: language,
+            sourceCode: userCode,
+            point,
+            key: key,
          }),
          headers: {
             "Content-Type": "application/json",
          },
+         credentials: "include",
       })
          .then((r) => {
-            return r.JSON();
-            // console.log(r.JSON());
-            // setUserOutput("ram is great\r\n260\r\n");
+            return r.json();
          })
-         .then((r) => console.log(r))
+         .then((r) => {
+            // console.log(r);
+            return r;
+         });
+      ///admin role finish
+      let userResult = await fetch("http://localhost:9999/runCode", {
+         method: "POST",
+         body: JSON.stringify({
+            input: userInput,
+            currentLanguage: language,
+            sourceCode: userCode,
+            point,
+            key: key,
+         }),
+         headers: {
+            "Content-Type": "application/json",
+         },
+         credentials: "include",
+      })
+         .then((r) => {
+            return r.json();
+         })
+         .then((r) => {
+            // console.log(r);
+            setUserOutput("");
+            return r;
+         });
+      // console.log("userresult :", userResult.res.stdout);
+      // console.log("admin res :", adminResult.res.stdout);
+      let flag = false;
+      if (userResult.res.stdout === adminResult.res.stdout) {
+         console.log("test cases passes");
+         setTestResult([true, true, true, true]);
+         flag = true;
+      } else {
+         console.log("test cases are not passes");
+         setTestResult([false, false, false, false]);
+         flag = false;
+      }
+      //update database according to the test cases passes or not
+      await fetch("http://localhost:9999/isdone", {
+         method: "POST",
+         body: JSON.stringify({
+            isDone: flag,
+            key: key,
+         }),
+         headers: {
+            "Content-Type": "application/json",
+         },
+         credentials: "include",
+      })
+         .then((r) => {
+            if (r.ok) {
+               console.log("updated id done");
+            } else {
+               console.log("not updated id done");
+            }
+         })
          .catch((e) => {
             console.log(e);
          });
    };
 
-   // -------------------------------
+   //----------------------------------------------------
+   const run = () => {
+      fetch("http://localhost:9999/runCode", {
+         method: "POST",
+         body: JSON.stringify({
+            input: userInput,
+            currentLanguage: language,
+            sourceCode: userCode,
+            point,
+            questionKey: key,
+         }),
+         headers: {
+            "Content-Type": "application/json",
+         },
+         credentials: "include",
+      })
+         .then((r) => {
+            return r.json();
+         })
+         .then((r) => {
+            console.log(r.res);
+            if (r.res.stdout) {
+               setUserOutput(r.res.stdout);
+            } else {
+               setUserOutput(r.res.stderr);
+            }
+            // return r;
+         });
+
+      fetch("http://localhost:9999/saveUserCode", {
+         method: "POST",
+         body: JSON.stringify({
+            input: userInput,
+            currentLanguage: language,
+            sourceCode: userCode,
+            point,
+            questionKey: key,
+         }),
+         headers: {
+            "Content-Type": "application/json",
+         },
+         credentials: "include",
+      })
+         .then((r) => {
+            if (r.ok) {
+               return {
+                  sucess: true,
+               };
+            } else {
+               return {
+                  sucess: false,
+               };
+            }
+         })
+         .then((r) => {
+            if (r.sucess) {
+               console.log("code saved");
+            } else {
+               console.log("code not saved");
+            }
+         });
+   };
+   //-----------------reset is called
+   const reset = () => {
+      fetch(`http://localhost:9999/defaultCode`, {
+         method: "GET",
+         credentials: "include",
+      })
+         .then((rs) => {
+            return rs.json();
+         })
+         .then((rs) => {
+            console.log(
+               "initial load data :",
+               rs.sourceCode,
+               rs.defaultLanguage
+            );
+            setUserCode(rs.sourceCode);
+            setLanguage(rs.defaultLanguage);
+         });
+
+      fetch("http://localhost:9999/saveUserCode", {
+         method: "POST",
+         body: JSON.stringify({
+            input: userInput,
+            currentLanguage: language,
+            sourceCode: userCode,
+            point,
+            questionKey: key,
+         }),
+         headers: {
+            "Content-Type": "application/json",
+         },
+         credentials: "include",
+      })
+         .then((r) => {
+            if (r.ok) {
+               return {
+                  sucess: true,
+               };
+            } else {
+               return {
+                  sucess: false,
+               };
+            }
+         })
+         .then((r) => {
+            if (r.sucess) {
+               console.log("code saved");
+            } else {
+               console.log("code not saved");
+            }
+         });
+   };
+
+   // ----------when user load page hit api to get its previos data---------------------
+   useEffect(() => {
+      fetch(`http://localhost:9999/getInitialCode/${key}`, {
+         method: "POST",
+         credentials: "include",
+      })
+         .then((r) => {
+            return r.json();
+         })
+         .then((r) => {
+            if (r.length === 0) {
+               fetch(`http://localhost:9999/defaultCode`, {
+                  method: "GET",
+                  credentials: "include",
+               })
+                  .then((rs) => {
+                     return rs.json();
+                  })
+                  .then((rs) => {
+                     console.log(
+                        "initial load data :",
+                        rs.sourceCode,
+                        rs.defaultLanguage,
+                        rs
+                     );
+                     if (rs.isDone) {
+                        setTestResult(true, true, true, true);
+                     } else {
+                        setTestResult(false, false, false, false);
+                     }
+                     setUserCode(rs.sourceCode);
+                     setLanguage(rs.defaultLanguage);
+                  });
+            } else {
+               console.log("some saved data comming from db", r);
+               setUserCode(r[0].sourceCode);
+               setLanguage(r[0].currentLanguage);
+            }
+         });
+   }, []);
+
+   //------------------------------------------
    // console.log(userCode);
    const [toggleProblem, setToggleProblem] = useState(true);
    return (
@@ -161,7 +376,6 @@ const NewPanel = () => {
                className={styles.toggleImg}
                onClick={() => {
                   setToggleProblem(!toggleProblem);
-                  // setUserOutput("ram is great\r\n260\r\n");
                }}
                src={toggleImg}
             />
@@ -353,14 +567,16 @@ const NewPanel = () => {
                </DropdownMenu>
             </Dropdown>
             <div style={{ color: "white" }}>.....</div>
-            <Button size="sm">reset</Button>
+            <Button color="primary" size="sm" onClick={reset}>
+               reset
+            </Button>
 
             <div style={{ color: "white" }}>.....</div>
-            <Button color="primary" size="sm">
+            <Button color="primary" size="sm" onClick={run}>
                run
             </Button>
             <div style={{ color: "white" }}>.....</div>
-            <Button color="primary" size="sm">
+            <Button color="primary" size="sm" onClick={submit}>
                submit
             </Button>
          </div>

@@ -74,7 +74,7 @@ const allLightTheme = [
    "sqlserver",
 ];
 const tabList = [1, 2, 3, 4, 6, 8, 10, 12];
-const allLanguaue = ["c", "cpp", "java", "python", "javascript"];
+const allLanguaue = ["c", "cpp", "java", "python"];
 const allEditor = ["ace", "sublime", "vim", "vscode"];
 const editorItems = {
    allLanguaue,
