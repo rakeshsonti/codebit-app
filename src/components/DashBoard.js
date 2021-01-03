@@ -22,6 +22,7 @@ import NewPanel from "./NewPanel";
 import Profile from "./Profile";
 import Explore from "./Explore";
 import Admin from "./Admin";
+import SeperateEditor from "./SeperateEditor";
 function DashBoard(props) {
    const [isOpen, setIsOpen] = useState(false);
    const toggle = () => {
@@ -137,7 +138,7 @@ function DashBoard(props) {
                <LeaderBoard />
             </Route>
             <Route exact path="/newpanel">
-               <NewPanel />
+               <SeperateEditor />
             </Route>
             <Route exact path="/ask">
                <Ask />

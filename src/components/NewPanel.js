@@ -14,6 +14,7 @@ import {
    DropdownMenu,
    DropdownItem,
    Button,
+   Spinner,
 } from "reactstrap";
 const {
    allLanguaue,
@@ -28,6 +29,8 @@ const NewPanel = () => {
    let initialLoadData = {};
    const { key, topic } = useParams();
    const history = useHistory();
+   const [spinner, setSpinner] = useState(true);
+   const [runSpinner, setRunSpinner] = useState(true);
    const [topicTag, setTopicTag] = useState();
    const [problemHead, setProblemHead] = useState();
    const [problem, setProblem] = useState();
@@ -92,14 +95,14 @@ const NewPanel = () => {
    }, []);
    const [userInput, setUserInput] = useState();
    const [userOutput, setUserOutput] = useState("");
-   const [testResult, setTestResult] = useState([false, false, false, false]);
+   const [testResult, setTestResult] = useState();
    // const value = "";
    const [userCode, setUserCode] = useState();
    const [font, setFont] = useState(14);
    const [tab, setTab] = useState(2);
    const [language, setLanguage] = useState();
    const [theme, setTheme] = useState("monokai");
-   const [editor, setEditor] = useState("vscode");
+   const [editor, setEditor] = useState("ace");
    const [dropdownOpenFont, setDropdownOpenFont] = useState(false);
    const toggleFont = () => setDropdownOpenFont((prevState) => !prevState);
    const [dropdownOpenTab, setDropdownOpenTab] = useState(false);
@@ -117,7 +120,10 @@ const NewPanel = () => {
       setUserInput(e.target.value);
       // setUserOutput(e.target.value);
    };
+   //-----------------------------
+   const isNullOrUndefined = (value) => value === null || value === undefined;
    //----------------run test cases----------------
+
    const submit = async () => {
       // console.log("chla submit");
       let adminResult = await fetch("http://localhost:9999/runTestCase", {
@@ -167,14 +173,22 @@ const NewPanel = () => {
       // console.log("userresult :", userResult.res.stdout);
       // console.log("admin res :", adminResult.res.stdout);
       let flag = false;
-      if (userResult.res.stdout === adminResult.res.stdout) {
+      if (
+         userResult.res.stdout === adminResult.res.stdout &&
+         !isNullOrUndefined(userResult.res.stdout) &&
+         !isNullOrUndefined(adminResult.res.stdout) &&
+         adminResult.res.stdout.length !== 0 &&
+         userResult.res.stdout.length !== 0
+      ) {
          console.log("test cases passes");
-         setTestResult([true, true, true, true]);
+         setTestResult(2);
          flag = true;
+         setSpinner(true);
       } else {
          console.log("test cases are not passes");
-         setTestResult([false, false, false, false]);
+         setTestResult(3);
          flag = false;
+         setSpinner(true);
       }
       //update database according to the test cases passes or not
       await fetch("http://localhost:9999/isdone", {
@@ -222,8 +236,10 @@ const NewPanel = () => {
          .then((r) => {
             console.log(r.res);
             if (r.res.stdout) {
+               setRunSpinner(true);
                setUserOutput(r.res.stdout);
             } else {
+               setRunSpinner(true);
                setUserOutput(r.res.stderr);
             }
             // return r;
@@ -334,24 +350,26 @@ const NewPanel = () => {
                      return rs.json();
                   })
                   .then((rs) => {
-                     console.log(
-                        "initial load data :",
-                        rs.sourceCode,
-                        rs.defaultLanguage,
-                        rs
-                     );
-                     if (rs.isDone) {
-                        setTestResult(true, true, true, true);
-                     } else {
-                        setTestResult(false, false, false, false);
-                     }
+                     // console.log(
+                     //    "initial load data :",
+                     //    rs.sourceCode,
+                     //    rs.defaultLanguage,
+                     //    rs
+                     // );
+                     setTestResult(1);
                      setUserCode(rs.sourceCode);
                      setLanguage(rs.defaultLanguage);
                   });
             } else {
                console.log("some saved data comming from db", r);
+               if (r[0].isDone) {
+                  setTestResult(2);
+               } else {
+                  setTestResult(3);
+               }
                setUserCode(r[0].sourceCode);
                setLanguage(r[0].currentLanguage);
+               console.log("test result:", r, testResult);
             }
          });
    }, []);
@@ -547,7 +565,7 @@ const NewPanel = () => {
             <div style={{ color: "white" }}>.....</div>
             {/* -----------tab */}
             <Dropdown isOpen={dropdownOpenTab} toggle={toggleTab} size="sm">
-               <DropdownToggle caret>{tab}</DropdownToggle>
+               <DropdownToggle caret>tab</DropdownToggle>
                <DropdownMenu>
                   <div className={styles.tabScroll}>
                      {tabList.map((tabValue, index) => {
@@ -572,13 +590,32 @@ const NewPanel = () => {
             </Button>
 
             <div style={{ color: "white" }}>.....</div>
-            <Button color="primary" size="sm" onClick={run}>
+            <Button
+               hidden={!runSpinner}
+               color="primary"
+               size="sm"
+               onClick={() => {
+                  setRunSpinner(false);
+                  run();
+               }}
+            >
                run
             </Button>
+            <Spinner color="primary" hidden={runSpinner} />
             <div style={{ color: "white" }}>.....</div>
-            <Button color="primary" size="sm" onClick={submit}>
+            <Button
+               color="primary"
+               size="sm"
+               onClick={() => {
+                  submit();
+                  setSpinner(false);
+               }}
+               hidden={!spinner}
+            >
+               {" "}
                submit
             </Button>
+            <Spinner type="grow" color="primary" hidden={spinner} />
          </div>
 
          {/* main editor------------------------ */}
@@ -610,29 +647,82 @@ const NewPanel = () => {
                      value={userInput}
                   ></textarea>
                   <div className={styles.consoleTestcase}>
-                     {testResult.map((res, index) => {
-                        return (
-                           <div
-                              className={styles.testDiv}
-                              key={`${res}${index}`}
-                           >
-                              <h6>Test case {index + 1}</h6>
-                              {res ? (
-                                 <img
-                                    src={greenIcon}
-                                    alt="test img"
-                                    className={styles.testimg}
-                                 ></img>
-                              ) : (
-                                 <img
-                                    src={redIcon}
-                                    alt="test img"
-                                    className={styles.testimg}
-                                 ></img>
-                              )}
-                           </div>
-                        );
-                     })}
+                     <div className={styles.testDiv}>
+                        <h6>Test case 1</h6>
+                        {testResult === 1 ? null : testResult === 2 ? (
+                           <img
+                              src={greenIcon}
+                              alt="test img"
+                              className={styles.testimg}
+                              hidden={!spinner}
+                           ></img>
+                        ) : (
+                           <img
+                              src={redIcon}
+                              alt="test img"
+                              className={styles.testimg}
+                              hidden={!spinner}
+                           ></img>
+                        )}
+                        <Spinner color="success" hidden={spinner} />
+                     </div>
+                     <div className={styles.testDiv}>
+                        <h6>Test case 2</h6>
+                        {testResult === 1 ? null : testResult === 2 ? (
+                           <img
+                              src={greenIcon}
+                              alt="test img"
+                              className={styles.testimg}
+                              hidden={!spinner}
+                           ></img>
+                        ) : (
+                           <img
+                              src={redIcon}
+                              alt="test img"
+                              className={styles.testimg}
+                              hidden={!spinner}
+                           ></img>
+                        )}
+                        <Spinner color="success" hidden={spinner} />
+                     </div>
+                     <div className={styles.testDiv}>
+                        <h6>Test case 3</h6>
+                        {testResult === 1 ? null : testResult === 2 ? (
+                           <img
+                              src={greenIcon}
+                              alt="test img"
+                              className={styles.testimg}
+                              hidden={!spinner}
+                           ></img>
+                        ) : (
+                           <img
+                              src={redIcon}
+                              alt="test img"
+                              className={styles.testimg}
+                              hidden={!spinner}
+                           ></img>
+                        )}
+                        <Spinner color="success" hidden={spinner} />
+                     </div>
+                     <div className={styles.testDiv}>
+                        <h6>Test case 4</h6>
+                        {testResult === 1 ? null : testResult === 2 ? (
+                           <img
+                              src={greenIcon}
+                              alt="test img"
+                              className={styles.testimg}
+                              hidden={!spinner}
+                           ></img>
+                        ) : (
+                           <img
+                              src={redIcon}
+                              alt="test img"
+                              className={styles.testimg}
+                              hidden={!spinner}
+                           ></img>
+                        )}
+                        <Spinner color="success" hidden={spinner} />
+                     </div>
                   </div>
                </Col>
             </Row>

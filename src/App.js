@@ -63,7 +63,7 @@ function App() {
          })
          .catch((e) => {
             console.log(e);
-            setLoginError("error");
+            setLoginError("internal error! try again");
          });
    };
    const showHandler = () => {

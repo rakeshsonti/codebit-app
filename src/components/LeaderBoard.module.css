@@ -1,0 +1,30 @@
+.container {
+   width: 60%;
+   margin-left: 20%;
+   margin-top: 10px;
+}
+.header {
+   width: 60%;
+   margin-left: 20%;
+   margin-top: 10px;
+   margin-bottom: 15px;
+   display: flex;
+   flex-direction: row;
+   /* justify-content: space-between; */
+}
+.table {
+   background-color: rgb(218, 194, 218);
+   font-size: small;
+}
+.paginationContainer {
+   width: 60%;
+   margin-left: 20%;
+   justify-content: center;
+}
+.searching {
+   width: 130px;
+   height: 10px;
+}
+.btn :hover {
+   cursor: pointer;
+}

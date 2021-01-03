@@ -18,7 +18,10 @@ const Admin = (props) => {
    const [spaceComplexity, setSpaceComplexity] = useState();
    const [problemLevel, setProblemLevel] = useState();
    const [point, setPoint] = useState();
-   const [solution, setSolution] = useState();
+   const [csolution, setCSolution] = useState();
+   const [cppsolution, setCppSolution] = useState();
+   const [javasolution, setJavaSolution] = useState();
+   const [pythonsolution, setPythonSolution] = useState();
    const [err, setErr] = useState();
    const saveProblem = () => {
       fetch("http://localhost:9999/saveProblem", {
@@ -40,7 +43,10 @@ const Admin = (props) => {
             spaceComplexity,
             problemLevel,
             point,
-            solution,
+            csolution,
+            cppsolution,
+            javasolution,
+            pythonsolution,
          }),
          headers: {
             "Content-Type": "application/json",
@@ -234,11 +240,38 @@ const Admin = (props) => {
             </div>
             <div className={styles.subContainer}>
                {" "}
-               <label className={styles.leftItem}>Solution</label>
+               <label className={styles.leftItem}>C-Solution</label>
                <textarea
                   className={styles.rightItem}
-                  onChange={(e) => setSolution(e.target.value)}
-                  value={solution}
+                  onChange={(e) => setCSolution(e.target.value)}
+                  value={csolution}
+               ></textarea>
+            </div>
+            <div className={styles.subContainer}>
+               {" "}
+               <label className={styles.leftItem}>CPP-Solution</label>
+               <textarea
+                  className={styles.rightItem}
+                  onChange={(e) => setCppSolution(e.target.value)}
+                  value={cppsolution}
+               ></textarea>
+            </div>
+            <div className={styles.subContainer}>
+               {" "}
+               <label className={styles.leftItem}>Java-Solution</label>
+               <textarea
+                  className={styles.rightItem}
+                  onChange={(e) => setJavaSolution(e.target.value)}
+                  value={javasolution}
+               ></textarea>
+            </div>
+            <div className={styles.subContainer}>
+               {" "}
+               <label className={styles.leftItem}>Python-Solution</label>
+               <textarea
+                  className={styles.rightItem}
+                  onChange={(e) => setPythonSolution(e.target.value)}
+                  value={pythonsolution}
                ></textarea>
             </div>
          </div>
