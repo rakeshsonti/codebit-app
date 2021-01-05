@@ -12,18 +12,18 @@ import Searching from "../images/searching.PNG";
 import Sorting from "../images/sorting.PNG";
 import Recursion from "../images/recursion.PNG";
 import Hashing from "../images/hashing.PNG";
-import Explore from "./Explore";
+// import Explore from "./Explore";
 import { Card, Button, CardImg, CardFooter } from "reactstrap";
 import {
    BrowserRouter as Router,
-   Switch,
-   Route,
+   // Switch,
+   // Route,
    Link,
-   Redirect,
+   // Redirect,
    useHistory,
 } from "react-router-dom";
 
-const Home = (props) => {
+const Home = () => {
    let history = useHistory();
    console.log("history ", history);
    const handlerClick = (tag) => {

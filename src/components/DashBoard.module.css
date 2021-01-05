@@ -1,3 +1,12 @@
+.fallback {
+   color: rgba(0, 0, 205, 0.986);
+   font-weight: bold;
+   font-size: large;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
 .profileH1:hover {
    background-color: rgba(212, 209, 209, 0.849);
 }

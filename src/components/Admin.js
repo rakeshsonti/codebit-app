@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Admin.module.css";
 import { Button } from "reactstrap";
+import { useHistory } from "react-router-dom";
 const Admin = (props) => {
    const [topicTag, setTopicTag] = useState();
    const [questionKey, setQuestionKey] = useState();
@@ -23,6 +24,7 @@ const Admin = (props) => {
    const [javasolution, setJavaSolution] = useState();
    const [pythonsolution, setPythonSolution] = useState();
    const [err, setErr] = useState();
+   let history = useHistory();
    const saveProblem = () => {
       fetch("http://localhost:9999/saveProblem", {
          method: "POST",
@@ -81,6 +83,13 @@ const Admin = (props) => {
          <h6>(Set Problem)</h6>
          <hr />
          <div className={styles.container}>
+            <Button
+               color="link"
+               onClick={history.goBack}
+               className={styles.backbtn}
+            >
+               back
+            </Button>
             <div className={styles.subContainer}>
                {" "}
                <Button className={styles.leftItem} onClick={saveProblem}>

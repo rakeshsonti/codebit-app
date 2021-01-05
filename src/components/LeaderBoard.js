@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import {
    Table,
    Pagination,
@@ -12,6 +13,8 @@ import {
 } from "reactstrap";
 import styles from "./LeaderBoard.module.css";
 const LeaderBoard = () => {
+   const history = useHistory();
+
    const records = [
       {
          userName: "ram",
@@ -64,15 +67,34 @@ const LeaderBoard = () => {
          solvedQuestion: 2334,
       },
    ];
+   useEffect(() => {
+      fetch("http://localhost:9999/leaderboard", {
+         headers: {
+            "Content-Type": "application/json",
+         },
+         method: "GET",
+         credentials: "include",
+      })
+         .then((r) => {
+            if (r.ok) {
+               return r.json();
+            } else {
+               console.log(r);
+            }
+         })
+         .then((r) => {
+            console.log("leaderboared data", r);
+         });
+   }, []);
    return (
       <div className={styles.container}>
          <div className={styles.header}>
-            <InputGroup className={styles.searching} size="sm">
+            {/* <InputGroup className={styles.searching} size="sm">
                <Input placeholder="searching" />
                <InputGroupAddon addonType="append">
                   <Button className={styles.btn}>?</Button>
                </InputGroupAddon>
-            </InputGroup>
+            </InputGroup> */}
          </div>
          <hr />
          <Table className={styles.table} size="sm" hover>
@@ -87,7 +109,7 @@ const LeaderBoard = () => {
             <tbody>
                {records.map((record, index) => {
                   return (
-                     <tr>
+                     <tr key={`${record}something${index}`}>
                         <th scope="row">{index + 1}</th>
                         <td>{record.userName}</td>
                         <td>{record.score}</td>
