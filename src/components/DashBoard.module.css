@@ -1,3 +1,33 @@
+.profileH1:hover {
+   background-color: rgba(212, 209, 209, 0.849);
+}
+.profileH1 {
+   font-size: medium;
+}
+.profileH2 {
+   font-size: smaller;
+   font-style: italic;
+   /* font-weight: bold; */
+   align-items: flex-start;
+   display: flexbox;
+}
+.profileH2:hover {
+   background-color: rgb(169, 214, 79);
+}
+.profileH3 {
+   font-size: 14px;
+}
+.profileH3:hover {
+   background-color: rgb(98, 169, 240);
+}
+.profileH4 {
+   font-size: 15px;
+   background-color: rgb(8, 248, 248);
+}
+.profileH4:hover {
+   background-color: rgb(98, 169, 240);
+}
+
 .navbar {
    background-color: #072748;
    width: 100% !important;

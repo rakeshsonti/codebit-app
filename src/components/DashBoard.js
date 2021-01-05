@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import styles from "./DashBoard.module.css";
 import {
+   PersonBoundingBox,
+   Envelope,
+   Trophy,
+   Award,
+   Power,
+   PlusSquare,
+   QuestionCircle,
+} from "react-bootstrap-icons";
+import {
    Collapse,
    NavbarToggler,
    NavbarBrand,
@@ -8,7 +17,12 @@ import {
    Nav,
    NavItem,
    Button,
+   ButtonDropdown,
+   DropdownToggle,
+   DropdownMenu,
+   DropdownItem,
 } from "reactstrap";
+import ProfileIcon from "../images/code.PNG";
 import {
    BrowserRouter as Router,
    Route,
@@ -28,6 +42,9 @@ function DashBoard(props) {
    const toggle = () => {
       setIsOpen(!isOpen);
    };
+   const [dropdownOpenProfile, setOpenProfile] = useState(false);
+
+   const toggleProfile = () => setOpenProfile(!dropdownOpenProfile);
 
    return (
       <div>
@@ -75,7 +92,7 @@ function DashBoard(props) {
                               size="sm"
                               className={styles.navitem}
                            >
-                              New Panel
+                              <PlusSquare />
                            </Button>
                         </NavLink>
                      </NavItem>
@@ -87,32 +104,9 @@ function DashBoard(props) {
                               size="sm"
                               className={styles.navitem}
                            >
-                              Ask ?
+                              <QuestionCircle />
                            </Button>
                         </NavLink>
-                     </NavItem>
-                     <NavItem>
-                        <NavLink to="/profile">
-                           <Button
-                              outline
-                              color="success"
-                              size="sm"
-                              className={styles.navitem}
-                           >
-                              Profile
-                           </Button>
-                        </NavLink>
-                     </NavItem>
-                     <NavItem>
-                        <Button
-                           outline
-                           color="danger"
-                           size="sm"
-                           className={styles.navitem}
-                           onClick={props.logoutHandler}
-                        >
-                           Log out
-                        </Button>
                      </NavItem>
                      <NavItem>
                         <NavLink to="/admin">
@@ -125,6 +119,63 @@ function DashBoard(props) {
                               Admin
                            </Button>
                         </NavLink>
+                     </NavItem>
+                     <NavItem>
+                        {/* <NavLink to="/profile"> */}
+                        <img
+                           src={ProfileIcon}
+                           width="35px"
+                           height="33px"
+                           alt="profile icon"
+                        ></img>
+                        <ButtonDropdown
+                           isOpen={dropdownOpenProfile}
+                           toggle={toggleProfile}
+                           size="sm"
+                           className={styles.navitem}
+                           color="secondary"
+                        >
+                           <DropdownToggle
+                              color="secondary"
+                              size="sm"
+                              color="success"
+                              caret
+                           ></DropdownToggle>
+                           <DropdownMenu>
+                              <DropdownItem header className={styles.profileH1}>
+                                 <PersonBoundingBox /> Rambhajan Sonti
+                              </DropdownItem>
+                              <DropdownItem className={styles.profileH2}>
+                                 <Envelope /> ram@gmail.com
+                              </DropdownItem>
+                              <DropdownItem className={styles.profileH3}>
+                                 <Trophy /> score : 1234
+                              </DropdownItem>
+                              <DropdownItem divider />
+                              <DropdownItem className={styles.profileH4}>
+                                 <Award /> Rank : 34
+                              </DropdownItem>
+                           </DropdownMenu>
+                        </ButtonDropdown>
+                        {/* <Button
+                              outline
+                              color="success"
+                              size="sm"
+                              className={styles.navitem}
+                           ></Button> */}
+                        {/* </NavLink> */}
+                     </NavItem>
+
+                     <NavItem>
+                        <Button
+                           outline
+                           color="danger"
+                           size="sm"
+                           className={styles.navitem}
+                           onClick={props.logoutHandler}
+                        >
+                           <Power />
+                        </Button>
                      </NavItem>
                   </Nav>
                </Collapse>
