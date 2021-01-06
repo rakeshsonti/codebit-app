@@ -3,7 +3,6 @@ import styles from "./DashBoard.module.css";
 import {
    PersonBoundingBox,
    Envelope,
-   Trophy,
    Award,
    Power,
    PlusSquare,
@@ -32,14 +31,42 @@ const Ask = lazy(() => import("./Ask"));
 const LeaderBoard = lazy(() => import("./LeaderBoard"));
 const Admin = lazy(() => import("./Admin"));
 const SeperateEditor = lazy(() => import("./SeperateEditor"));
+
 function DashBoard(props) {
    const [isOpen, setIsOpen] = useState(false);
+   const [profileName, setProfileName] = useState("");
+   const [profileUsername, setProfileUsername] = useState("");
+   const [profileScore, setProfileScore] = useState();
    const toggle = () => {
       setIsOpen(!isOpen);
    };
    const [dropdownOpenProfile, setOpenProfile] = useState(false);
 
    const toggleProfile = () => setOpenProfile(!dropdownOpenProfile);
+   const FindProfile = () => {
+      fetch("http://localhost:9999/getProfile", {
+         headers: {
+            "Content-Type": "application/json",
+         },
+         method: "GET",
+         credentials: "include",
+      })
+         .then((r) => {
+            if (r.ok) {
+               return r.json();
+            } else {
+               console.log(r);
+            }
+         })
+         .then((r) => {
+            console.log(r.profile[0]);
+            if (r.profile[0] !== null || r.profile[0] !== undefined) {
+               setProfileName(r.profile[0].name);
+               setProfileUsername(r.profile[0].username);
+               setProfileScore(r.profile[0].point);
+            }
+         });
+   };
 
    return (
       <div>
@@ -138,9 +165,11 @@ function DashBoard(props) {
                               size="sm"
                               className={styles.navitem}
                               color="secondary"
+                              onClick={() => {
+                                 FindProfile();
+                              }}
                            >
                               <DropdownToggle
-                                 color="secondary"
                                  size="sm"
                                  color="success"
                                  caret
@@ -150,27 +179,18 @@ function DashBoard(props) {
                                     header
                                     className={styles.profileH1}
                                  >
-                                    <PersonBoundingBox /> Rambhajan Sonti
+                                    <PersonBoundingBox /> {profileName}
                                  </DropdownItem>
                                  <DropdownItem className={styles.profileH2}>
-                                    <Envelope /> ram@gmail.com
+                                    <Envelope /> {profileUsername}
                                  </DropdownItem>
-                                 <DropdownItem className={styles.profileH3}>
-                                    <Trophy /> score : 1234
-                                 </DropdownItem>
+
                                  <DropdownItem divider />
                                  <DropdownItem className={styles.profileH4}>
-                                    <Award /> Rank : 34
+                                    <Award /> Score : {profileScore}
                                  </DropdownItem>
                               </DropdownMenu>
                            </ButtonDropdown>
-                           {/* <Button
-                              outline
-                              color="success"
-                              size="sm"
-                              className={styles.navitem}
-                           ></Button> */}
-                           {/* </NavLink> */}
                         </NavItem>
 
                         <NavItem>

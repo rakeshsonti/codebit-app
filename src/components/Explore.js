@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "reactstrap";
 import { useHistory, useParams } from "react-router-dom";
 
@@ -8,7 +8,6 @@ const Explore = () => {
    const [problems, setProblems] = useState([]);
    const history = useHistory();
    useEffect(() => {
-      console.log("history :", history);
       fetch(`http://localhost:9999/getProblemSet/${topicTag}`, {
          method: "POST",
          credentials: "include",
@@ -20,7 +19,6 @@ const Explore = () => {
             setProblems(r);
          });
    }, []);
-   console.log("problems", problems);
 
    return (
       <div className={styles.container}>

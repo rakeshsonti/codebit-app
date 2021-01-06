@@ -25,8 +25,8 @@ const {
    tabList,
 } = editorItems;
 const NewPanel = () => {
-   let problems = {};
-   let initialLoadData = {};
+   // let problems = {};
+   // let initialLoadData = {};
    const { key, topic } = useParams();
    const history = useHistory();
    const [spinner, setSpinner] = useState(true);
@@ -57,7 +57,7 @@ const NewPanel = () => {
          })
          .then((r) => {
             // setProblems(r);
-            problems = [...r];
+            // problems = [...r];
             let {
                topicTag,
                problemHead,
@@ -129,8 +129,6 @@ const NewPanel = () => {
       let adminResult = await fetch("http://localhost:9999/runTestCase", {
          method: "POST",
          body: JSON.stringify({
-            input: userInput,
-            currentLanguage: language,
             sourceCode: userCode,
             point,
             key: key,
@@ -148,7 +146,7 @@ const NewPanel = () => {
             return r;
          });
       ///admin role finish
-      let userResult = await fetch("http://localhost:9999/runCode", {
+      let userResult = await fetch("http://localhost:9999/runUserCode", {
          method: "POST",
          body: JSON.stringify({
             input: userInput,
@@ -170,8 +168,10 @@ const NewPanel = () => {
             setUserOutput("");
             return r;
          });
-      // console.log("userresult :", userResult.res.stdout);
-      // console.log("admin res :", adminResult.res.stdout);
+      console.log("userresult :", userResult.res.stdout);
+      console.log("admin res :", adminResult.res.stdout);
+      console.log(userResult.res.stdout.length);
+      console.log(adminResult.res.stdout.length);
       let flag = false;
       if (
          userResult.res.stdout === adminResult.res.stdout &&
@@ -190,12 +190,45 @@ const NewPanel = () => {
          flag = false;
          setSpinner(true);
       }
+      //--------------------------
+      fetch("http://localhost:9999/saveUserCode", {
+         method: "POST",
+         body: JSON.stringify({
+            currentLanguage: language,
+            sourceCode: userCode,
+            point,
+            questionKey: key,
+         }),
+         headers: {
+            "Content-Type": "application/json",
+         },
+         credentials: "include",
+      })
+         .then((r) => {
+            if (r.ok) {
+               return {
+                  sucess: true,
+               };
+            } else {
+               return {
+                  sucess: false,
+               };
+            }
+         })
+         .then((r) => {
+            if (r.sucess) {
+               console.log("code saved");
+            } else {
+               console.log("code not saved");
+            }
+         });
       //update database according to the test cases passes or not
       await fetch("http://localhost:9999/isdone", {
          method: "POST",
          body: JSON.stringify({
             isDone: flag,
             key: key,
+            point: point,
          }),
          headers: {
             "Content-Type": "application/json",

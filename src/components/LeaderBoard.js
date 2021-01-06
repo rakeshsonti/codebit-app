@@ -1,79 +1,57 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
    Table,
    Pagination,
    PaginationItem,
    PaginationLink,
-   InputGroup,
-   Input,
-   InputGroupAddon,
-   InputGroupText,
    Button,
 } from "reactstrap";
 import styles from "./LeaderBoard.module.css";
 const LeaderBoard = () => {
    const history = useHistory();
+   const [allRecords, setAllRecords] = useState([]);
+   // const [limit, setLimit] = useState(10);
+   const limit = 10;
+   const [skip, setSkip] = useState(0);
+   const [prevState, setPrevState] = useState(true);
+   const [nextState, setNextState] = useState(false);
+   const [active, setActive] = useState(true);
+   const [nextDouble, setNextDouble] = useState(false);
+   const [prevDouble, setPrevDouble] = useState(false);
+   const [firstPageNumber, setFirstPageNumber] = useState(1);
+   const [secondPageNumber, setSecondPageNumber] = useState(2);
+   const PrevReacord = (skp) => {
+      if (skip !== 0) {
+         setSkip(skp);
+         getRecord(skp);
+         if (prevDouble) {
+            setFirstPageNumber(firstPageNumber - 1);
+            setSecondPageNumber(secondPageNumber - 1);
+         }
+         setPrevDouble(true);
+         setNextDouble(false);
+      }
+      // console.log(skip);
+   };
+   const NextRecord = (skp) => {
+      setSkip(skp);
+      setPrevState(false);
+      console.log(skip);
 
-   const records = [
-      {
-         userName: "ram",
-         score: 2345,
-         solvedQuestion: 23,
-      },
-      {
-         userName: "lakhan",
-         score: 233,
-         solvedQuestion: 24,
-      },
-      {
-         userName: "krishna",
-         score: 2355,
-         solvedQuestion: 21,
-      },
-      {
-         userName: "arjun",
-         score: 2345,
-         solvedQuestion: 29,
-      },
-      {
-         userName: "aryan",
-         score: 2345,
-         solvedQuestion: 209,
-      },
-      {
-         userName: "vijay",
-         score: 2005,
-         solvedQuestion: 230,
-      },
-      {
-         userName: "rohit",
-         score: 25,
-         solvedQuestion: 111,
-      },
-      {
-         userName: "shri",
-         score: 234,
-         solvedQuestion: 234,
-      },
-      {
-         userName: "pooja",
-         score: 235,
-         solvedQuestion: 567,
-      },
-      {
-         userName: "ruhi",
-         score: 2985,
-         solvedQuestion: 2334,
-      },
-   ];
-   useEffect(() => {
-      fetch("http://localhost:9999/leaderboard", {
+      getRecord(skp);
+   };
+   const getRecord = (skp) => {
+      fetch("http://localhost:9999/getleaderboard", {
          headers: {
             "Content-Type": "application/json",
          },
-         method: "GET",
+         method: "POST",
          credentials: "include",
+         body: JSON.stringify({
+            limit: limit,
+            skip: skp,
+         }),
       })
          .then((r) => {
             if (r.ok) {
@@ -84,17 +62,48 @@ const LeaderBoard = () => {
          })
          .then((r) => {
             console.log("leaderboared data", r);
+            if (r.allData.length !== 0) {
+               setAllRecords(r.allData);
+               console.log("data nhi hai");
+            } else {
+               setSkip(skp - 10);
+               setNextState(true);
+               setFirstPageNumber(firstPageNumber);
+               setSecondPageNumber(secondPageNumber);
+            }
+         });
+   };
+
+   useEffect(() => {
+      fetch("http://localhost:9999/getleaderboard", {
+         headers: {
+            "Content-Type": "application/json",
+         },
+         method: "POST",
+         credentials: "include",
+         body: JSON.stringify({
+            limit: limit,
+            skip: skip,
+         }),
+      })
+         .then((r) => {
+            if (r.ok) {
+               return r.json();
+            } else {
+               console.log(r);
+            }
+         })
+         .then((r) => {
+            console.log("leaderboared data", r);
+            setAllRecords(r.allData);
          });
    }, []);
    return (
       <div className={styles.container}>
          <div className={styles.header}>
-            {/* <InputGroup className={styles.searching} size="sm">
-               <Input placeholder="searching" />
-               <InputGroupAddon addonType="append">
-                  <Button className={styles.btn}>?</Button>
-               </InputGroupAddon>
-            </InputGroup> */}
+            <Button color="link" onClick={history.goBack}>
+               back
+            </Button>
          </div>
          <hr />
          <Table className={styles.table} size="sm" hover>
@@ -103,17 +112,17 @@ const LeaderBoard = () => {
                   <th>Rank</th>
                   <th>Username</th>
                   <th>Overall Score</th>
-                  <th>Solved Questions</th>
+                  {/* <th>Solved Questions</th> */}
                </tr>
             </thead>
             <tbody>
-               {records.map((record, index) => {
+               {allRecords.map((record, index) => {
                   return (
                      <tr key={`${record}something${index}`}>
                         <th scope="row">{index + 1}</th>
-                        <td>{record.userName}</td>
-                        <td>{record.score}</td>
-                        <td>{record.solvedQuestion}</td>
+                        <td>{record.name}</td>
+                        <td>{record.point}</td>
+                        {/* <td>{record.solvedQuestion}</td> */}
                      </tr>
                   );
                })}
@@ -123,32 +132,45 @@ const LeaderBoard = () => {
             aria-label="Page navigation example"
             className={styles.paginationContainer}
          >
-            <PaginationItem disabled>
-               <PaginationLink first href="#" />
-            </PaginationItem>
-            <PaginationItem disabled>
-               <PaginationLink previous href="#" />
-            </PaginationItem>
-            <PaginationItem active>
-               <PaginationLink href="#">1</PaginationLink>
-            </PaginationItem>
             <PaginationItem>
-               <PaginationLink href="#">2</PaginationLink>
+               <PaginationLink
+                  onClick={() => {
+                     if (skip !== 0) {
+                        PrevReacord(skip - 10);
+                        setNextState(false);
+                     } else {
+                        setPrevState(true);
+                     }
+                     setActive(true);
+                  }}
+                  disabled={prevState}
+               >
+                  prev
+               </PaginationLink>
             </PaginationItem>
-            <PaginationItem>
-               <PaginationLink href="#">3</PaginationLink>
+            <PaginationItem active={active}>
+               <PaginationLink disabled>{firstPageNumber}</PaginationLink>
             </PaginationItem>
-            <PaginationItem>
-               <PaginationLink href="#">4</PaginationLink>
+            <PaginationItem active={!active}>
+               <PaginationLink disabled>{secondPageNumber}</PaginationLink>
             </PaginationItem>
+
             <PaginationItem>
-               <PaginationLink href="#">5</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-               <PaginationLink next href="#" />
-            </PaginationItem>
-            <PaginationItem>
-               <PaginationLink last href="#" />
+               <PaginationLink
+                  onClick={() => {
+                     NextRecord(skip + 10);
+                     setActive(false);
+                     if (nextDouble) {
+                        setFirstPageNumber(firstPageNumber + 1);
+                        setSecondPageNumber(secondPageNumber + 1);
+                     }
+                     setNextDouble(true);
+                     setPrevDouble(false);
+                  }}
+                  disabled={nextState}
+               >
+                  next
+               </PaginationLink>
             </PaginationItem>
          </Pagination>
       </div>

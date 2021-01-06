@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import styles from "./Admin.module.css";
 import { Button } from "reactstrap";
+import {
+   Dropdown,
+   DropdownToggle,
+   DropdownMenu,
+   DropdownItem,
+} from "reactstrap";
 import { useHistory } from "react-router-dom";
 const Admin = (props) => {
    const [topicTag, setTopicTag] = useState();
@@ -24,6 +30,10 @@ const Admin = (props) => {
    const [javasolution, setJavaSolution] = useState();
    const [pythonsolution, setPythonSolution] = useState();
    const [err, setErr] = useState();
+   const [language, setLanguage] = useState("language");
+   const [userInput, setUserInput] = useState();
+   const [dropdownOpen, setDropdownOpen] = useState(false);
+   const toggle = () => setDropdownOpen((prevState) => !prevState);
    let history = useHistory();
    const saveProblem = () => {
       fetch("http://localhost:9999/saveProblem", {
@@ -49,6 +59,8 @@ const Admin = (props) => {
             cppsolution,
             javasolution,
             pythonsolution,
+            language,
+            userInput,
          }),
          headers: {
             "Content-Type": "application/json",
@@ -76,7 +88,7 @@ const Admin = (props) => {
             // setErr(e);
          });
    };
-   console.log(topicTag);
+   // console.log(topicTag);
    return (
       <div>
          <h3>Admin</h3>
@@ -249,11 +261,58 @@ const Admin = (props) => {
             </div>
             <div className={styles.subContainer}>
                {" "}
+               <label className={styles.leftItem}>User Input</label>
+               <textarea
+                  className={styles.rightItem}
+                  onChange={(e) => setUserInput(e.target.value)}
+                  value={userInput}
+               ></textarea>
+            </div>
+            <div className={styles.subContainer}>
+               {" "}
+               <label className={styles.leftItem}>Language</label>
+               <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+                  <DropdownToggle caret>{language}</DropdownToggle>
+                  <DropdownMenu>
+                     <DropdownItem
+                        onClick={() => {
+                           setLanguage("c");
+                        }}
+                     >
+                        c
+                     </DropdownItem>
+                     <DropdownItem
+                        onClick={() => {
+                           setLanguage("cpp");
+                        }}
+                     >
+                        cpp
+                     </DropdownItem>
+                     <DropdownItem
+                        onClick={() => {
+                           setLanguage("java");
+                        }}
+                     >
+                        java
+                     </DropdownItem>
+                     <DropdownItem
+                        onClick={() => {
+                           setLanguage("python");
+                        }}
+                     >
+                        python
+                     </DropdownItem>
+                  </DropdownMenu>
+               </Dropdown>
+            </div>
+            <div className={styles.subContainer}>
+               {" "}
                <label className={styles.leftItem}>C-Solution</label>
                <textarea
                   className={styles.rightItem}
                   onChange={(e) => setCSolution(e.target.value)}
                   value={csolution}
+                  disabled={!(language === "c")}
                ></textarea>
             </div>
             <div className={styles.subContainer}>
@@ -263,6 +322,7 @@ const Admin = (props) => {
                   className={styles.rightItem}
                   onChange={(e) => setCppSolution(e.target.value)}
                   value={cppsolution}
+                  disabled={!(language === "cpp")}
                ></textarea>
             </div>
             <div className={styles.subContainer}>
@@ -272,6 +332,7 @@ const Admin = (props) => {
                   className={styles.rightItem}
                   onChange={(e) => setJavaSolution(e.target.value)}
                   value={javasolution}
+                  disabled={!(language === "java")}
                ></textarea>
             </div>
             <div className={styles.subContainer}>
@@ -281,6 +342,7 @@ const Admin = (props) => {
                   className={styles.rightItem}
                   onChange={(e) => setPythonSolution(e.target.value)}
                   value={pythonsolution}
+                  disabled={!(language === "python")}
                ></textarea>
             </div>
          </div>

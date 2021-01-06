@@ -7,7 +7,7 @@ import Queue from "../images/queue.PNG";
 import Tree from "../images/tree.PNG";
 import Heap from "../images/heap.PNG";
 import Matrix from "../images/matrix.PNG";
-import Graph from "../images/graph.PNG";
+import String from "../images/graph.PNG";
 import Searching from "../images/searching.PNG";
 import Sorting from "../images/sorting.PNG";
 import Recursion from "../images/recursion.PNG";
@@ -55,7 +55,13 @@ const Home = () => {
                <Card className={styles.card}>
                   <CardImg top src={LinkedList} alt="linkedlist img" />
                   <CardFooter>
-                     <Button variant="outline-dark" size="sm">
+                     <Button
+                        variant="outline-dark"
+                        size="sm"
+                        onClick={() => {
+                           handlerClick("linkedlist");
+                        }}
+                     >
                         linkedlist
                      </Button>
                   </CardFooter>
@@ -63,7 +69,13 @@ const Home = () => {
                <Card className={styles.card}>
                   <CardImg top src={Stack} alt="stack img" />
                   <CardFooter>
-                     <Button variant="outline-dark" size="sm">
+                     <Button
+                        variant="outline-dark"
+                        size="sm"
+                        onClick={() => {
+                           handlerClick("stack");
+                        }}
+                     >
                         stack
                      </Button>
                   </CardFooter>
@@ -75,7 +87,13 @@ const Home = () => {
                <Card className={styles.card}>
                   <CardImg top src={Queue} alt="queue img" />
                   <CardFooter>
-                     <Button variant="outline-dark" size="sm">
+                     <Button
+                        variant="outline-dark"
+                        size="sm"
+                        onClick={() => {
+                           handlerClick("queue");
+                        }}
+                     >
                         queue
                      </Button>
                   </CardFooter>
@@ -83,7 +101,13 @@ const Home = () => {
                <Card className={styles.card}>
                   <CardImg top src={Tree} alt="tree img" />
                   <CardFooter>
-                     <Button variant="outline-dark" size="sm">
+                     <Button
+                        variant="outline-dark"
+                        size="sm"
+                        onClick={() => {
+                           handlerClick("tree");
+                        }}
+                     >
                         tree
                      </Button>
                   </CardFooter>
@@ -91,7 +115,13 @@ const Home = () => {
                <Card className={styles.card}>
                   <CardImg top src={Heap} alt="heap img" />
                   <CardFooter>
-                     <Button variant="outline-dark" size="sm">
+                     <Button
+                        variant="outline-dark"
+                        size="sm"
+                        onClick={() => {
+                           handlerClick("heap");
+                        }}
+                     >
                         heap
                      </Button>
                   </CardFooter>
@@ -104,23 +134,41 @@ const Home = () => {
                <Card className={styles.card}>
                   <CardImg top src={Matrix} alt="Matrix img" />
                   <CardFooter>
-                     <Button variant="outline-dark" size="sm">
+                     <Button
+                        variant="outline-dark"
+                        size="sm"
+                        onClick={() => {
+                           handlerClick("matrix");
+                        }}
+                     >
                         matrix
                      </Button>
                   </CardFooter>
                </Card>
                <Card className={styles.card}>
-                  <CardImg top src={Graph} alt="Graph img" />
+                  <CardImg top src={String} alt="string img" />
                   <CardFooter>
-                     <Button variant="outline-dark" size="sm">
-                        graph
+                     <Button
+                        variant="outline-dark"
+                        size="sm"
+                        onClick={() => {
+                           handlerClick("string");
+                        }}
+                     >
+                        string
                      </Button>
                   </CardFooter>
                </Card>
                <Card className={styles.card}>
                   <CardImg top src={Searching} alt="Searching img" />
                   <CardFooter>
-                     <Button variant="outline-dark" size="sm">
+                     <Button
+                        variant="outline-dark"
+                        size="sm"
+                        onClick={() => {
+                           handlerClick("searching");
+                        }}
+                     >
                         searching
                      </Button>
                   </CardFooter>
@@ -133,7 +181,13 @@ const Home = () => {
                <Card className={styles.card}>
                   <CardImg top src={Sorting} alt="Sorting img" />
                   <CardFooter>
-                     <Button variant="outline-dark" size="sm">
+                     <Button
+                        variant="outline-dark"
+                        size="sm"
+                        onClick={() => {
+                           handlerClick("sorting");
+                        }}
+                     >
                         sorting
                      </Button>
                   </CardFooter>
@@ -141,7 +195,13 @@ const Home = () => {
                <Card className={styles.card}>
                   <CardImg top src={Recursion} alt="Recursion img" />
                   <CardFooter>
-                     <Button variant="outline-dark" size="sm">
+                     <Button
+                        variant="outline-dark"
+                        size="sm"
+                        onClick={() => {
+                           handlerClick("recursion");
+                        }}
+                     >
                         recursion
                      </Button>
                   </CardFooter>
@@ -149,7 +209,13 @@ const Home = () => {
                <Card className={styles.card}>
                   <CardImg top src={Hashing} alt="Hashing img" />
                   <CardFooter>
-                     <Button variant="outline-dark" size="sm">
+                     <Button
+                        variant="outline-dark"
+                        size="sm"
+                        onClick={() => {
+                           handlerClick("hashing");
+                        }}
+                     >
                         hashing
                      </Button>
                   </CardFooter>
