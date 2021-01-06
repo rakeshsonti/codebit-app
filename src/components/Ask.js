@@ -13,14 +13,12 @@ const Ask = () => {
    const [problemHead, setProblemHead] = useState("");
    const [problemDescription, setProblemDescription] = useState("");
    const [toggle, setToggle] = useState(false);
-   // const [commentText, setCommentText] = useState();
    const inputHead = useRef();
    const inputDesc = useRef();
    const comment = useRef();
    const [username, setUsername] = useState("");
 
    const [doubtsArray, setDoubtArray] = useState([]);
-   console.log("doubt array", doubtsArray);
    useEffect(() => {
       fetch("http://localhost:9999/doubtSectionLoad", {
          method: "GET",
@@ -37,7 +35,6 @@ const Ask = () => {
             }
          })
          .then((r) => {
-            console.log(r);
             setDoubtArray([...r]);
          });
       fetch("http://localhost:9999/userinformation", {
@@ -48,7 +45,6 @@ const Ask = () => {
          credentials: "include",
       })
          .then((r) => {
-            // console.log("abc", r);
             if (r.ok) {
                return r.json();
             } else {
@@ -75,7 +71,6 @@ const Ask = () => {
             }
          })
          .then((r) => {
-            console.log(r);
             setDoubtArray([...r]);
          });
       fetch("http://localhost:9999/userinformation", {
@@ -86,7 +81,6 @@ const Ask = () => {
          credentials: "include",
       })
          .then((r) => {
-            // console.log("abc", r);
             if (r.ok) {
                return r.json();
             } else {
@@ -114,7 +108,7 @@ const Ask = () => {
             }
          })
          .then((r) => {
-            console.log(r);
+            // console.log(r);
          });
    };
    const deleteComment = (commentValue, commentedBy, commentId) => {
@@ -134,7 +128,7 @@ const Ask = () => {
             }
          })
          .then((r) => {
-            console.log(r);
+            // console.log(r);
          });
    };
    const saveProblem = () => {
@@ -154,7 +148,7 @@ const Ask = () => {
             }
          })
          .then((r) => {
-            console.log(r);
+            // console.log(r);
          });
    };
    const addComment = (commentId) => {
@@ -182,7 +176,7 @@ const Ask = () => {
                }
             })
             .then((r) => {
-               console.log(r);
+               // console.log(r);
             });
       }
    };
@@ -222,11 +216,6 @@ const Ask = () => {
             <textarea
                type="text"
                className={styles.commentInput}
-               // onChange={(e) => {
-               //    e.preventDefault();
-               //    setCommentText(e.target.value);
-               // }}
-               // value={commentText}
                ref={comment}
             ></textarea>
             <div className={styles.commentbtn}>
@@ -245,7 +234,6 @@ const Ask = () => {
    };
    const ShowDescription = (obj) => {
       const [toggle2, setToggle2] = useState(false);
-      // console.log("id---.", obj.id);
       return (
          <>
             <div
@@ -266,9 +254,7 @@ const Ask = () => {
       );
    };
    const ShowBasic = (obj) => {
-      // console.log("very basic showbasic", obj.probs._id);
       const [toggle1, setToggle1] = useState(false);
-      // console.log("first pass : ", obj.probs.askedBy);
       return (
          <>
             <div
@@ -393,10 +379,8 @@ const Ask = () => {
                </div>
             </div>
          ) : null}
-         {/* {doubtsArray.reverse()} */}
          {!toggle
             ? doubtsArray.map((prob, index) => {
-                 //   console.log(prob);
                  return (
                     <div className={styles.problem} key={`${index}something`}>
                        <ShowBasic probs={prob} />

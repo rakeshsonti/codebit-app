@@ -25,8 +25,6 @@ const {
    tabList,
 } = editorItems;
 const NewPanel = () => {
-   // let problems = {};
-   // let initialLoadData = {};
    const { key, topic } = useParams();
    const history = useHistory();
    const [spinner, setSpinner] = useState(true);
@@ -56,8 +54,6 @@ const NewPanel = () => {
             return r.json();
          })
          .then((r) => {
-            // setProblems(r);
-            // problems = [...r];
             let {
                topicTag,
                problemHead,
@@ -75,7 +71,6 @@ const NewPanel = () => {
                task,
                constraints,
             } = r[0];
-            console.log("r value :", r);
             setTopicTag(topicTag);
             setProblemHead(problemHead);
             setProblem(problem);
@@ -96,7 +91,6 @@ const NewPanel = () => {
    const [userInput, setUserInput] = useState();
    const [userOutput, setUserOutput] = useState("");
    const [testResult, setTestResult] = useState();
-   // const value = "";
    const [userCode, setUserCode] = useState();
    const [font, setFont] = useState(14);
    const [tab, setTab] = useState(2);
@@ -116,16 +110,10 @@ const NewPanel = () => {
 
    const toggleEditor = () => setDropdownOpenEditor((prevState) => !prevState);
    const changeInput = (e) => {
-      // console.log(e.target.value);
       setUserInput(e.target.value);
-      // setUserOutput(e.target.value);
    };
-   //-----------------------------
    const isNullOrUndefined = (value) => value === null || value === undefined;
-   //----------------run test cases----------------
-
    const submit = async () => {
-      // console.log("chla submit");
       let adminResult = await fetch("http://localhost:9999/runTestCase", {
          method: "POST",
          body: JSON.stringify({
@@ -164,14 +152,9 @@ const NewPanel = () => {
             return r.json();
          })
          .then((r) => {
-            // console.log(r);
             setUserOutput("");
             return r;
          });
-      console.log("userresult :", userResult.res.stdout);
-      console.log("admin res :", adminResult.res.stdout);
-      console.log(userResult.res.stdout.length);
-      console.log(adminResult.res.stdout.length);
       let flag = false;
       if (
          userResult.res.stdout === adminResult.res.stdout &&
@@ -180,12 +163,10 @@ const NewPanel = () => {
          adminResult.res.stdout.length !== 0 &&
          userResult.res.stdout.length !== 0
       ) {
-         console.log("test cases passes");
          setTestResult(2);
          flag = true;
          setSpinner(true);
       } else {
-         console.log("test cases are not passes");
          setTestResult(3);
          flag = false;
          setSpinner(true);
@@ -216,11 +197,11 @@ const NewPanel = () => {
             }
          })
          .then((r) => {
-            if (r.sucess) {
-               console.log("code saved");
-            } else {
-               console.log("code not saved");
-            }
+            // if (r.sucess) {
+            //    // console.log("code saved");
+            // } else {
+            //    console.log("code not saved");
+            // }
          });
       //update database according to the test cases passes or not
       await fetch("http://localhost:9999/isdone", {
@@ -236,17 +217,16 @@ const NewPanel = () => {
          credentials: "include",
       })
          .then((r) => {
-            if (r.ok) {
-               console.log("updated id done");
-            } else {
-               console.log("not updated id done");
-            }
+            // if (r.ok) {
+            //    console.log("updated id done");
+            // } else {
+            //    console.log("not updated id done");
+            // }
          })
          .catch((e) => {
             console.log(e);
          });
    };
-
    //----------------------------------------------------
    const run = () => {
       fetch("http://localhost:9999/runCode", {
@@ -267,7 +247,6 @@ const NewPanel = () => {
             return r.json();
          })
          .then((r) => {
-            console.log(r.res);
             if (r.res.stdout) {
                setRunSpinner(true);
                setUserOutput(r.res.stdout);
@@ -275,7 +254,6 @@ const NewPanel = () => {
                setRunSpinner(true);
                setUserOutput(r.res.stderr);
             }
-            // return r;
          });
 
       fetch("http://localhost:9999/saveUserCode", {
@@ -304,11 +282,11 @@ const NewPanel = () => {
             }
          })
          .then((r) => {
-            if (r.sucess) {
-               console.log("code saved");
-            } else {
-               console.log("code not saved");
-            }
+            // if (r.sucess) {
+            //    console.log("code saved");
+            // } else {
+            //    console.log("code not saved");
+            // }
          });
    };
    //-----------------reset is called
@@ -321,11 +299,6 @@ const NewPanel = () => {
             return rs.json();
          })
          .then((rs) => {
-            console.log(
-               "initial load data :",
-               rs.sourceCode,
-               rs.defaultLanguage
-            );
             setUserCode(rs.sourceCode);
             setLanguage(rs.defaultLanguage);
          });
@@ -356,11 +329,11 @@ const NewPanel = () => {
             }
          })
          .then((r) => {
-            if (r.sucess) {
-               console.log("code saved");
-            } else {
-               console.log("code not saved");
-            }
+            // if (r.sucess) {
+            //    console.log("code saved");
+            // } else {
+            //    console.log("code not saved");
+            // }
          });
    };
 
@@ -383,18 +356,11 @@ const NewPanel = () => {
                      return rs.json();
                   })
                   .then((rs) => {
-                     // console.log(
-                     //    "initial load data :",
-                     //    rs.sourceCode,
-                     //    rs.defaultLanguage,
-                     //    rs
-                     // );
                      setTestResult(1);
                      setUserCode(rs.sourceCode);
                      setLanguage(rs.defaultLanguage);
                   });
             } else {
-               console.log("some saved data comming from db", r);
                if (r[0].isDone) {
                   setTestResult(2);
                } else {
@@ -402,13 +368,10 @@ const NewPanel = () => {
                }
                setUserCode(r[0].sourceCode);
                setLanguage(r[0].currentLanguage);
-               console.log("test result:", r, testResult);
             }
          });
    }, []);
-
    //------------------------------------------
-   // console.log(userCode);
    const [toggleProblem, setToggleProblem] = useState(true);
    return (
       <div className={styles.container}>

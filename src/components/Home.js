@@ -12,20 +12,10 @@ import Searching from "../images/searching.PNG";
 import Sorting from "../images/sorting.PNG";
 import Recursion from "../images/recursion.PNG";
 import Hashing from "../images/hashing.PNG";
-// import Explore from "./Explore";
 import { Card, Button, CardImg, CardFooter } from "reactstrap";
-import {
-   BrowserRouter as Router,
-   // Switch,
-   // Route,
-   Link,
-   // Redirect,
-   useHistory,
-} from "react-router-dom";
-
+import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 const Home = () => {
    let history = useHistory();
-   console.log("history ", history);
    const handlerClick = (tag) => {
       const str = `/explore/${tag}`;
       history.push(str);
@@ -82,7 +72,6 @@ const Home = () => {
                </Card>
             </div>
             <br />
-            {/* //--------------------------------------------------------- */}
             <div className={styles.subcontainer}>
                <Card className={styles.card}>
                   <CardImg top src={Queue} alt="queue img" />
@@ -128,8 +117,6 @@ const Home = () => {
                </Card>
             </div>
             <br />
-
-            {/* //---------------------------------------------- */}
             <div className={styles.subcontainer}>
                <Card className={styles.card}>
                   <CardImg top src={Matrix} alt="Matrix img" />
@@ -176,7 +163,6 @@ const Home = () => {
             </div>
             <br />
 
-            {/* //---------------------------------------------- */}
             <div className={styles.subcontainer}>
                <Card className={styles.card}>
                   <CardImg top src={Sorting} alt="Sorting img" />
@@ -222,8 +208,6 @@ const Home = () => {
                </Card>
             </div>
             <br />
-
-            {/* //---------------------------------------------- */}
          </Router>
       </div>
    );

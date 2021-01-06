@@ -8,7 +8,7 @@ import {
    DropdownItem,
 } from "reactstrap";
 import { useHistory } from "react-router-dom";
-const Admin = (props) => {
+const Admin = () => {
    const [topicTag, setTopicTag] = useState();
    const [questionKey, setQuestionKey] = useState();
    const [problemHead, setProblemHead] = useState();
@@ -85,10 +85,8 @@ const Admin = (props) => {
          })
          .catch((e) => {
             console.error(e);
-            // setErr(e);
          });
    };
-   // console.log(topicTag);
    return (
       <div>
          <h3>Admin</h3>

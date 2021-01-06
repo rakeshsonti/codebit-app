@@ -11,7 +11,6 @@ import styles from "./LeaderBoard.module.css";
 const LeaderBoard = () => {
    const history = useHistory();
    const [allRecords, setAllRecords] = useState([]);
-   // const [limit, setLimit] = useState(10);
    const limit = 10;
    const [skip, setSkip] = useState(0);
    const [prevState, setPrevState] = useState(true);
@@ -32,13 +31,10 @@ const LeaderBoard = () => {
          setPrevDouble(true);
          setNextDouble(false);
       }
-      // console.log(skip);
    };
    const NextRecord = (skp) => {
       setSkip(skp);
       setPrevState(false);
-      console.log(skip);
-
       getRecord(skp);
    };
    const getRecord = (skp) => {
@@ -61,10 +57,8 @@ const LeaderBoard = () => {
             }
          })
          .then((r) => {
-            console.log("leaderboared data", r);
             if (r.allData.length !== 0) {
                setAllRecords(r.allData);
-               console.log("data nhi hai");
             } else {
                setSkip(skp - 10);
                setNextState(true);
@@ -94,7 +88,6 @@ const LeaderBoard = () => {
             }
          })
          .then((r) => {
-            console.log("leaderboared data", r);
             setAllRecords(r.allData);
          });
    }, []);
@@ -112,7 +105,6 @@ const LeaderBoard = () => {
                   <th>Rank</th>
                   <th>Username</th>
                   <th>Overall Score</th>
-                  {/* <th>Solved Questions</th> */}
                </tr>
             </thead>
             <tbody>
@@ -122,7 +114,6 @@ const LeaderBoard = () => {
                         <th scope="row">{index + 1}</th>
                         <td>{record.name}</td>
                         <td>{record.point}</td>
-                        {/* <td>{record.solvedQuestion}</td> */}
                      </tr>
                   );
                })}

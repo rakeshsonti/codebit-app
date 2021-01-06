@@ -64,7 +64,6 @@ const SeperateEditor = () => {
             return r.json();
          })
          .then((r) => {
-            console.log(r.res);
             if (r.res.stdout) {
                setRunSpinner(true);
                setUserOutput(r.res.stdout);
@@ -72,7 +71,6 @@ const SeperateEditor = () => {
                setRunSpinner(true);
                setUserOutput(r.res.stderr);
             }
-            // return r;
          });
    };
    return (

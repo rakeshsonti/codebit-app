@@ -6,7 +6,7 @@ import {
    Award,
    Power,
    PlusSquare,
-   QuestionCircle,
+   // QuestionCircle,
 } from "react-bootstrap-icons";
 import {
    Collapse,
@@ -59,7 +59,6 @@ function DashBoard(props) {
             }
          })
          .then((r) => {
-            console.log(r.profile[0]);
             if (r.profile[0] !== null || r.profile[0] !== undefined) {
                setProfileName(r.profile[0].name);
                setProfileUsername(r.profile[0].username);
@@ -135,7 +134,8 @@ function DashBoard(props) {
                                  size="sm"
                                  className={styles.navitem}
                               >
-                                 <QuestionCircle />
+                                 {/* <QuestionCircle /> */}
+                                 Ask
                               </Button>
                            </NavLink>
                         </NavItem>
@@ -152,7 +152,6 @@ function DashBoard(props) {
                            </NavLink>
                         </NavItem>
                         <NavItem>
-                           {/* <NavLink to="/profile"> */}
                            <img
                               src={ProfileIcon}
                               width="35px"
@@ -207,7 +206,6 @@ function DashBoard(props) {
                      </Nav>
                   </Collapse>
                </Navbar>
-               {/* <Switch> */}
                <Route exact path="/">
                   <Home />
                </Route>
@@ -221,9 +219,6 @@ function DashBoard(props) {
                <Route exact path="/ask">
                   <Ask />
                </Route>
-               {/* <Route exact path="/profile">
-                  <Profile />
-               </Route> */}
                <Route exact path="/admin">
                   <Admin />
                </Route>
@@ -233,8 +228,6 @@ function DashBoard(props) {
                <Route path="/problem/:key/:topic/:name">
                   <NewPanel />
                </Route>
-
-               {/* </Switch> */}
             </Router>
          </Suspense>
       </div>

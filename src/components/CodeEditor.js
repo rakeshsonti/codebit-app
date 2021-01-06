@@ -29,7 +29,6 @@ import "ace-builds/src-noconflict/ext-language_tools";
 
 function Editor(props) {
    function onChange(newValue) {
-      // console.log("change", newValue);
       props.onChange(newValue);
    }
    return (
