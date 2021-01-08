@@ -8,15 +8,15 @@ function App() {
    const [isSigninOrLogin, setIsSigninOrLogin] = useState(true);
    const [loginError, setLoginError] = useState(undefined);
    const [signupError, setSignupError] = useState(undefined);
-   const [userName, setUserName] = useState(undefined);
-   const getUserName = () => {
+   // const [userName, setUserName] = useState(undefined);
+   const getUserInfo = () => {
       fetch("http://localhost:9999/userinfo", { credentials: "include" })
          .then((r) => {
             if (r.ok) {
                return r.json();
             } else {
                setLoggIn(false);
-               setUserName(undefined);
+               // setUserName(undefined);
                return {
                   success: false,
                };
@@ -25,12 +25,12 @@ function App() {
          .then((r) => {
             if (r.success !== false) {
                setLoggIn(true);
-               setUserName(r.email);
+               // setUserName(r.email);
             }
          });
    };
    useEffect(() => {
-      getUserName();
+      getUserInfo();
    }, []);
    const LoginHandler = (email, password) => {
       fetch("http://localhost:9999/login", {
@@ -55,7 +55,7 @@ function App() {
             if (r.success === true) {
                setLoggIn(true);
                setLoginError("");
-               return getUserName();
+               return getUserInfo();
             } else {
                // setLoggIn(false);
                setLoginError(r.err);
@@ -108,7 +108,7 @@ function App() {
       }).then((r) => {
          if (r.ok) {
             setLoggIn(false);
-            setUserName(undefined);
+            // setUserName(undefined);
          }
       });
    };
