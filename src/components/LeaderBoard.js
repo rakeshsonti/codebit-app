@@ -102,18 +102,20 @@ const LeaderBoard = () => {
          <Table className={styles.table} size="sm" hover>
             <thead>
                <tr>
-                  <th>Rank</th>
-                  <th>Username</th>
-                  <th>Overall Score</th>
+                  <th className={styles.rank}>Rank</th>
+                  <th className={styles.name}>Username</th>
+                  <th className={styles.rank}>Overall Score</th>
                </tr>
             </thead>
             <tbody>
                {allRecords.map((record, index) => {
                   return (
                      <tr key={`${record}something${index}`}>
-                        <th scope="row">{index + 1}</th>
-                        <td>{record.name}</td>
-                        <td>{record.point}</td>
+                        <th scope="row" className={styles.rank}>
+                           {index + 1}
+                        </th>
+                        <td className={styles.name}>{record.name}</td>
+                        <td className={styles.rank}>{record.point}</td>
                      </tr>
                   );
                })}

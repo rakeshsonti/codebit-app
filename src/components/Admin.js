@@ -102,7 +102,12 @@ const Admin = () => {
             </Button>
             <div className={styles.subContainer}>
                {" "}
-               <Button className={styles.leftItem} onClick={saveProblem}>
+               <Button
+                  className={styles.leftItem}
+                  onClick={() => {
+                     saveProblem();
+                  }}
+               >
                   save
                </Button>
                <textarea
@@ -303,46 +308,54 @@ const Admin = () => {
                   </DropdownMenu>
                </Dropdown>
             </div>
-            <div className={styles.subContainer}>
-               {" "}
-               <label className={styles.leftItem}>C-Solution</label>
-               <textarea
-                  className={styles.rightItem}
-                  onChange={(e) => setCSolution(e.target.value)}
-                  value={csolution}
-                  disabled={!(language === "c")}
-               ></textarea>
-            </div>
-            <div className={styles.subContainer}>
-               {" "}
-               <label className={styles.leftItem}>CPP-Solution</label>
-               <textarea
-                  className={styles.rightItem}
-                  onChange={(e) => setCppSolution(e.target.value)}
-                  value={cppsolution}
-                  disabled={!(language === "cpp")}
-               ></textarea>
-            </div>
-            <div className={styles.subContainer}>
-               {" "}
-               <label className={styles.leftItem}>Java-Solution</label>
-               <textarea
-                  className={styles.rightItem}
-                  onChange={(e) => setJavaSolution(e.target.value)}
-                  value={javasolution}
-                  disabled={!(language === "java")}
-               ></textarea>
-            </div>
-            <div className={styles.subContainer}>
-               {" "}
-               <label className={styles.leftItem}>Python-Solution</label>
-               <textarea
-                  className={styles.rightItem}
-                  onChange={(e) => setPythonSolution(e.target.value)}
-                  value={pythonsolution}
-                  disabled={!(language === "python")}
-               ></textarea>
-            </div>
+            {language === "c" ? (
+               <div className={styles.subContainer}>
+                  {" "}
+                  <label className={styles.leftItem}>C-Solution</label>
+                  <textarea
+                     className={styles.rightItem}
+                     onChange={(e) => setCSolution(e.target.value)}
+                     value={csolution}
+                     disabled={!(language === "c")}
+                  ></textarea>
+               </div>
+            ) : null}
+            {language === "cpp" ? (
+               <div className={styles.subContainer}>
+                  {" "}
+                  <label className={styles.leftItem}>CPP-Solution</label>
+                  <textarea
+                     className={styles.rightItem}
+                     onChange={(e) => setCppSolution(e.target.value)}
+                     value={cppsolution}
+                     disabled={!(language === "cpp")}
+                  ></textarea>
+               </div>
+            ) : null}
+            {language === "java" ? (
+               <div className={styles.subContainer}>
+                  {" "}
+                  <label className={styles.leftItem}>Java-Solution</label>
+                  <textarea
+                     className={styles.rightItem}
+                     onChange={(e) => setJavaSolution(e.target.value)}
+                     value={javasolution}
+                     disabled={!(language === "java")}
+                  ></textarea>
+               </div>
+            ) : null}
+            {language === "python" ? (
+               <div className={styles.subContainer}>
+                  {" "}
+                  <label className={styles.leftItem}>Python-Solution</label>
+                  <textarea
+                     className={styles.rightItem}
+                     onChange={(e) => setPythonSolution(e.target.value)}
+                     value={pythonsolution}
+                     disabled={!(language === "python")}
+                  ></textarea>
+               </div>
+            ) : null}
          </div>
       </div>
    );
