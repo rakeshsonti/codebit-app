@@ -18,7 +18,7 @@ const Explore = () => {
          .then((r) => {
             setProblems(r);
          });
-   }, []);
+   }, [topicTag]);
 
    return (
       <div className={styles.container}>

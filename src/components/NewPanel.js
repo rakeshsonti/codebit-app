@@ -87,7 +87,7 @@ const NewPanel = () => {
             setTask(task);
             setConstraints(constraints);
          });
-   }, []);
+   }, [key, topic]);
    const [userInput, setUserInput] = useState();
    const [userOutput, setUserOutput] = useState("");
    const [testResult, setTestResult] = useState();
@@ -130,10 +130,9 @@ const NewPanel = () => {
             return r.json();
          })
          .then((r) => {
-            // console.log(r);
             return r;
          });
-      ///admin role finish
+      //admin role finish
       let userResult = await fetch("http://localhost:9999/runUserCode", {
          method: "POST",
          body: JSON.stringify({
@@ -172,169 +171,157 @@ const NewPanel = () => {
          setSpinner(true);
       }
       //--------------------------
-      fetch("http://localhost:9999/saveUserCode", {
-         method: "POST",
-         body: JSON.stringify({
-            currentLanguage: language,
-            sourceCode: userCode,
-            point,
-            questionKey: key,
-         }),
-         headers: {
-            "Content-Type": "application/json",
-         },
-         credentials: "include",
-      })
-         .then((r) => {
-            if (r.ok) {
-               return {
-                  sucess: true,
-               };
-            } else {
-               return {
-                  sucess: false,
-               };
-            }
+      await Promise.all([
+         fetch("http://localhost:9999/saveUserCode", {
+            method: "POST",
+            body: JSON.stringify({
+               currentLanguage: language,
+               sourceCode: userCode,
+               point,
+               questionKey: key,
+            }),
+            headers: {
+               "Content-Type": "application/json",
+            },
+            credentials: "include",
          })
-         .then((r) => {
-            // if (r.sucess) {
-            //    // console.log("code saved");
-            // } else {
-            //    console.log("code not saved");
-            // }
-         });
-      //update database according to the test cases passes or not
-      await fetch("http://localhost:9999/isdone", {
-         method: "POST",
-         body: JSON.stringify({
-            isDone: flag,
-            key: key,
-            point: point,
-         }),
-         headers: {
-            "Content-Type": "application/json",
-         },
-         credentials: "include",
-      })
-         .then((r) => {
-            // if (r.ok) {
-            //    console.log("updated id done");
-            // } else {
-            //    console.log("not updated id done");
-            // }
+            .then((r) => {
+               if (r.ok) {
+                  return {
+                     sucess: true,
+                  };
+               } else {
+                  return {
+                     sucess: false,
+                  };
+               }
+            })
+            .then((r) => {
+               return r;
+            }),
+         fetch("http://localhost:9999/isdone", {
+            method: "POST",
+            body: JSON.stringify({
+               isDone: flag,
+               key: key,
+               point: point,
+            }),
+            headers: {
+               "Content-Type": "application/json",
+            },
+            credentials: "include",
          })
-         .catch((e) => {
-            console.log(e);
-         });
+            .then((r) => {
+               return r;
+            })
+            .catch((e) => {
+               console.log(e);
+            }),
+      ]);
    };
    //----------------------------------------------------
-   const run = () => {
-      fetch("http://localhost:9999/runCode", {
-         method: "POST",
-         body: JSON.stringify({
-            input: userInput,
-            currentLanguage: language,
-            sourceCode: userCode,
-            point,
-            questionKey: key,
-         }),
-         headers: {
-            "Content-Type": "application/json",
-         },
-         credentials: "include",
-      })
-         .then((r) => {
-            return r.json();
+   const run = async () => {
+      await Promise.all([
+         fetch("http://localhost:9999/runCode", {
+            method: "POST",
+            body: JSON.stringify({
+               input: userInput,
+               currentLanguage: language,
+               sourceCode: userCode,
+               point,
+               questionKey: key,
+            }),
+            headers: {
+               "Content-Type": "application/json",
+            },
+            credentials: "include",
          })
-         .then((r) => {
-            if (r.res.stdout) {
-               setRunSpinner(true);
-               setUserOutput(r.res.stdout);
-            } else {
-               setRunSpinner(true);
-               setUserOutput(r.res.stderr);
-            }
-         });
-
-      fetch("http://localhost:9999/saveUserCode", {
-         method: "POST",
-         body: JSON.stringify({
-            input: userInput,
-            currentLanguage: language,
-            sourceCode: userCode,
-            point,
-            questionKey: key,
-         }),
-         headers: {
-            "Content-Type": "application/json",
-         },
-         credentials: "include",
-      })
-         .then((r) => {
-            if (r.ok) {
-               return {
-                  sucess: true,
-               };
-            } else {
-               return {
-                  sucess: false,
-               };
-            }
+            .then((r) => {
+               return r.json();
+            })
+            .then((r) => {
+               if (r.res.stdout) {
+                  setRunSpinner(true);
+                  setUserOutput(r.res.stdout);
+               } else {
+                  setRunSpinner(true);
+                  setUserOutput(r.res.stderr);
+               }
+               return r;
+            }),
+         fetch("http://localhost:9999/saveUserCode", {
+            method: "POST",
+            body: JSON.stringify({
+               input: userInput,
+               currentLanguage: language,
+               sourceCode: userCode,
+               point,
+               questionKey: key,
+            }),
+            headers: {
+               "Content-Type": "application/json",
+            },
+            credentials: "include",
          })
-         .then((r) => {
-            // if (r.sucess) {
-            //    console.log("code saved");
-            // } else {
-            //    console.log("code not saved");
-            // }
-         });
+            .then((r) => {
+               if (r.ok) {
+                  return {
+                     sucess: true,
+                  };
+               } else {
+                  return {
+                     sucess: false,
+                  };
+               }
+            })
+            .then((r) => {
+               return r;
+            }),
+      ]);
    };
    //-----------------reset is called
-   const reset = () => {
-      fetch(`http://localhost:9999/defaultCode`, {
-         method: "GET",
-         credentials: "include",
-      })
-         .then((rs) => {
-            return rs.json();
+   const reset = async () => {
+      await Promise.all([
+         fetch(`http://localhost:9999/defaultCode`, {
+            method: "GET",
+            credentials: "include",
          })
-         .then((rs) => {
-            setUserCode(rs.sourceCode);
-            setLanguage(rs.defaultLanguage);
-         });
-
-      fetch("http://localhost:9999/saveUserCode", {
-         method: "POST",
-         body: JSON.stringify({
-            input: userInput,
-            currentLanguage: language,
-            sourceCode: userCode,
-            point,
-            questionKey: key,
-         }),
-         headers: {
-            "Content-Type": "application/json",
-         },
-         credentials: "include",
-      })
-         .then((r) => {
-            if (r.ok) {
-               return {
-                  sucess: true,
-               };
-            } else {
-               return {
-                  sucess: false,
-               };
-            }
+            .then((rs) => {
+               return rs.json();
+            })
+            .then((rs) => {
+               setUserCode(rs.sourceCode);
+               setLanguage(rs.defaultLanguage);
+            }),
+         fetch("http://localhost:9999/saveUserCode", {
+            method: "POST",
+            body: JSON.stringify({
+               input: userInput,
+               currentLanguage: language,
+               sourceCode: userCode,
+               point,
+               questionKey: key,
+            }),
+            headers: {
+               "Content-Type": "application/json",
+            },
+            credentials: "include",
          })
-         .then((r) => {
-            // if (r.sucess) {
-            //    console.log("code saved");
-            // } else {
-            //    console.log("code not saved");
-            // }
-         });
+            .then((r) => {
+               if (r.ok) {
+                  return {
+                     sucess: true,
+                  };
+               } else {
+                  return {
+                     sucess: false,
+                  };
+               }
+            })
+            .then((r) => {
+               return r;
+            }),
+      ]);
    };
 
    // ----------when user load page hit api to get its previos data---------------------
@@ -370,7 +357,7 @@ const NewPanel = () => {
                setLanguage(r[0].currentLanguage);
             }
          });
-   }, []);
+   }, [key]);
    //------------------------------------------
    const [toggleProblem, setToggleProblem] = useState(true);
    return (

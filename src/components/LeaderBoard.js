@@ -90,7 +90,7 @@ const LeaderBoard = () => {
          .then((r) => {
             setAllRecords(r.allData);
          });
-   }, []);
+   }, [skip]);
    return (
       <div className={styles.container}>
          <div className={styles.header}>
