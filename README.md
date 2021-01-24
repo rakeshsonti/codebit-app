@@ -1,6 +1,8 @@
 ### CodeBit
 
-      Introduction: Codebit is a web application where users can practice
+### Introduction:
+
+      Codebit is a web application where users can practice
       programming problems, data structure and algorithms.There is a
       facility of doubt session where users can ask their doubts and
       others to solve their doubts.There is a Leaderboard for competing
@@ -32,10 +34,10 @@
 ### Home:
 
       If the user logs in with the correct password , the user reaches the
-       home page. On the home page there are multiple buttons to react to
-       problems according to the data structures.
+      home page. On the home page there are multiple buttons to react to
+      problems according to the data structures.
 
-### Types of data structure:
+      Types of data structure:
 
       Array,LinkedList,Stack,Queue,Tree,Heap,Matrix,String,Searching,Sorting
       ,Recursion,and Hashing.
@@ -50,7 +52,7 @@
       Once user select a problem according to the problem user get problem part
       on this page and code Editor for writing the code, code editor comes with
       four language support eg. C,C++, Java and Python , Users can write code in
-       any language.
+      any language.
       Users have a choice to choose their code Editor theme, font size, tab size.
       Users can reset the code and run code and submit code. If the user writes
       the correct code and users code output is according to the standard problem
@@ -67,16 +69,18 @@
       In leaderboard the module user can see his ranking and points, and will get
       on successfully problem code submissions.Leaderboard helps students to compete
       with others.
-      Separate Editor: Separate Editor module has a code editor in which users can
+
+### Separate Editor: Separate Editor module has a code editor in which users can
+
       compile and run code in c, cpp , java and python. Code editor has lots of light
       and dark themes, font size , tab size facility.This modules for users simplicity
-       so that users can practice code here.
+      so that users can practice code here.
 
 ### Ask:
 
       In Ask modules users can ask doubts to other people and help other people to solve
-       their doubts. Doubt session is a simple one , where the user can ask doubts ,delete
-        his own doubt and comment, and comment on others doubts.
+      their doubts. Doubt session is a simple one , where the user can ask doubts ,delete
+      his own doubt and comment, and comment on others doubts.
 
 ### Admin:
 
@@ -114,7 +118,7 @@
       npm install
       npm start
       After few minutes you can see codebit login page opened in new tab
-       and login page is showing
+      and login page is showing
       Now you can play with applications.
 
 ### Prerequisites Technology and tools:
