@@ -1,5 +1,6 @@
 .name {
    text-align: left;
+   font-family: Helvetica, sans-serif;
 }
 .text {
    text-align: center;
@@ -20,9 +21,14 @@
 }
 .table {
    /* background-color: rgb(218, 194, 218); */
-   background-color: #c9cbff;
+   /* background-color: #c9cbff; */
+   background-color: #f8f1f1;
    font-size: small;
+   font-family: Helvetica, sans-serif;
 }
+/* .table:hover {
+   /* background-color: #16c79a !important; */
+/* } */
 .paginationContainer {
    width: 60%;
    margin-left: 20%;
@@ -34,4 +40,5 @@
 }
 .btn :hover {
    cursor: pointer;
+   /* background-color: #16c79a !important; */
 }

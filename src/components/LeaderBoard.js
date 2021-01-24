@@ -38,7 +38,7 @@ const LeaderBoard = () => {
       getRecord(skp);
    };
    const getRecord = (skp) => {
-      fetch("http://localhost:9999/getleaderboard", {
+      fetch("http://localhost:9999/getleaderboard/", {
          headers: {
             "Content-Type": "application/json",
          },

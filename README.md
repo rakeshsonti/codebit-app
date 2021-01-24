@@ -1,70 +1,89 @@
-# Getting Started with Create React App
+### CodeBit
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+      Introduction: Codebit is a web application where users can practice programming problems, data structure and algorithms.There is a facility of doubt session where users can ask their doubts and others to solve their doubts.There is a Leaderboard for competing with others.
+      In the market there are many platforms but it is difficult to find appropriate questions for practice data structure and algorithms and programming problems. Codebit provides relevant questions that help to understand data structure and algorithms help students to crack company interviews.
 
-## Available Scripts
+### Modules:
 
-In the project directory, you can run:
+      There are many modules in my project.
 
-### `npm start`
+### Login module:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+      This module is responsible for login .This module provides a simple UI for putting username and password, if the user provides the correct password.This module hit login endpoint at backend and check weather user provide correct password or not if password is correct it allow user to show home page otherwise show error on login page.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### SignUp module:
 
-### `npm test`
+      This module is responsible for singup a user. Users put Name ,email and password if the user provides correct data then it creates an account for that user.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Home:
 
-### `npm run build`
+      If the user logs in with the correct password , the user reaches the home page. On the home page there are multiple buttons to react to problems according to the data structures.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Types of data structure:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+      Array,LinkedList,Stack,Queue,Tree,Heap,Matrix,String,Searching,Sorting,Recursion,and Hashing.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Explore:
 
-### `npm run eject`
+      If a user chooses a data structure then on the next page the user gets all the problems related to those data structures.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### NewPanel:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+      Once user select a problem according to the problem user get problem part on this page and code Editor for writing the code, code editor comes with four language support eg. C,C++, Java and Python , Users can write code in any language.
+      Users have a choice to choose their code Editor theme, font size, tab size.
+      Users can reset the code and run code and submit code. If the user writes the correct code and users code output is according to the standard problem output then it will pass the test case other test cases will fail.
+      Users have an option to toggle the question.If the user writes correct code and a test case has passed, so according to the question , points will be added to the users account. Points will help users to move up on the leaderboard.
+      Users code will be saved in the database if a user comes in future for this problem , his code would be as it.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Leaderboard:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+      In leaderboard the module user can see his ranking and points, and will get on successfully problem code submissions.Leaderboard helps students to compete with others.
+      Separate Editor: Separate Editor module has a code editor in which users can compile and run code in c, cpp , java and python. Code editor has lots of light and dark themes, font size , tab size facility.This modules for users simplicity so that users can practice code here.
 
-## Learn More
+### Ask:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+      In Ask modules users can ask doubts to other people and help other people to solve their doubts. Doubt session is a simple one , where the user can ask doubts ,delete his own doubt and comment, and comment on others doubts.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Admin:
 
-### Code Splitting
+      Admin modules for admin not  for user users. In the admin section, admin can set problems for others and set test cases for a particular problem.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Advantages of codebit over other applications:
 
-### Analyzing the Bundle Size
+      You get a good variety of questions and problems.
+      Multiple language support and multiple theme supports.
+      Cover almost all data structure and respective programming problems.
+      Don’t need to waste time on filtering the question.
+      100%  free.
+      Facility to ask doubts and contribute and discuss your solutions to others.
+      Amazing UI.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Tools, Technologies, and Platform used:
 
-### Making a Progressive Web App
+      Front-end: ReactJS,Bootstrap,Reactstrap,JavaScript,CSS.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Improvements in the future for the present system:
 
-### Advanced Configuration
+      Test section where users can give tests.
+      Interview section where users can give interviews for the company.
+      Mentor section where users can book their mentor.
+      Notes Sections where users get notes related to all varieties of data structure and programming language.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Run locally on system:
 
-### Deployment
+      Open vscode code or any IDE and open a new window and open terminal.
+      Open a folder and clone the git repo.
+      “ git clone https://github.com/rambhajansonti/codebit-app”
+      cd codebit-app
+      npm install
+      npm start
+      After few minutes you can see codebit login page opened in new tab and login page is showing
+      Now you can play with applications.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Prerequisites Technology and tools:
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+      Make sure you have reactJS >=16+
+      NodeJS
+      Javac
+      Python
+      gcc
