@@ -58,7 +58,7 @@ would be as it.
 In leaderboard the module user can see his ranking and points, and will get on successfully
 problem code submissions.Leaderboard helps students to compete with others.
 
-### Separate Editor: Separate Editor module has a code editor in which users can
+### Separate Editor:
 
 Separate Editor module has a code editor in which users can compile and run code in c, cpp ,
 java and python. Code editor has lots of light and dark themes, font size , tab size facility.This
