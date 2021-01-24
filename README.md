@@ -92,10 +92,10 @@ for others and set test cases for a particular problem.
 
 ## Improvements in the future for the present system:
 
-Test section where users can give tests.
-Interview section where users can give interviews for the company.
-Mentor section where users can book their mentor.
-Notes Sections where users get notes related to all varieties of data structure and programming language.
+1. Test section where users can give tests.
+2. Interview section where users can give interviews for the company.
+3. Mentor section where users can book their mentor.
+4. Notes Sections where users get notes related to all varieties of data structure and programming language.
 
 ## Run locally on system:
 
@@ -121,6 +121,6 @@ Notes Sections where users get notes related to all varieties of data structure 
 7. mongoose.
 8. Express JS
 
-### repo. Link
+### Repository Link
 
 [codebit-frontend](https://github.com/rambhajansonti/codebit-app)
