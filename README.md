@@ -103,12 +103,11 @@ for others and set test cases for a particular problem.
 2. Open a folder and clone the git repo.
 3. **“git clone https://github.com/rambhajansonti/codebit-app”**
 4. open folder named **"codebit-app"** or **cd codebit-app**.
-5. change git branch **main** to **master** using the following command **“_git checkout master_”**.
-6. _npm install_.
-7. _npm start_.
-8. After few minutes you can see codebit login page opened in new tab
+5. _npm install_.
+6. _npm start_.
+7. After few minutes you can see codebit login page opened in new tab
    and login page is showing
-9. Now you can play with applications.
+8. Now you can play with applications.
 
 ## Prerequisites Technology and tools:
 
