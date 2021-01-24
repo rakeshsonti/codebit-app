@@ -1,6 +1,6 @@
-### CodeBit
+# CodeBit
 
-### Introduction:
+## Introduction:
 
 Codebit is a web application where users can practice programming problems,
 data structure and algorithms.There is a facility of doubt session where users can ask their
@@ -10,9 +10,9 @@ practice data structure and algorithms and programming problems. Codebit provide
 questions that help to understand data structure and algorithms help students to crack
 company interviews.
 
-### Modules:
+## Modules:
 
-There are many modules in my project.
+**There are many modules in my project.**
 
 ### Login module:
 
@@ -30,7 +30,7 @@ provides correct data then it creates an account for that user.
 
 If the user logs in with the correct password , the user reaches the home page. On the home
 page there are multiple buttons to react to problems according to the data structures.
-Types of data structure:
+**Types of data structure:**
 Array,LinkedList,Stack,Queue,Tree,Heap,Matrix,String,Searching,Sorting,Recursion,and
 Hashing.
 
@@ -75,7 +75,7 @@ and comment, and comment on others doubts.
 Admin modules for admin not for user users. In the admin section, admin can set problems
 for others and set test cases for a particular problem.
 
-### Advantages of codebit over other applications:
+## Advantages of codebit over other applications:
 
 1. You get a good variety of questions and problems.
 2. Multiple language support and multiple theme supports.
@@ -85,34 +85,36 @@ for others and set test cases for a particular problem.
 5. Facility to ask doubts and contribute and discuss your solutions to others.
    Amazing UI.
 
-### Tools, Technologies, and Platform used:
+## Tools, Technologies, and Platform used:
 
-Front-end: ReactJS,Bootstrap,Reactstrap,JavaScript,CSS.
+**Front-end:** _ReactJS,Bootstrap,Reactstrap,JavaScript,CSS_.
 
-### Improvements in the future for the present system:
+## Improvements in the future for the present system:
 
 Test section where users can give tests.
 Interview section where users can give interviews for the company.
 Mentor section where users can book their mentor.
 Notes Sections where users get notes related to all varieties of data structure and programming language.
 
-### Run locally on system:
+## Run locally on system:
 
 1. Open vscode code or any IDE and open a new window and open terminal.
 2. Open a folder and clone the git repo.
-3. “ git clone https://github.com/rambhajansonti/codebit-app”
-4. open folder named "codebit-app" or cd codebit-app
-5. change git branch main to master using the following command “git checkout master”.
-6. npm install
-7. npm start
+3. **“_git clone https://github.com/rambhajansonti/codebit-app_”**
+4. open folder named **"codebit-app"** or **cd codebit-app**.
+5. change git branch **main** to **master** using the following command **“_git checkout master_”**.
+6. _npm install_.
+7. _npm start_.
 8. After few minutes you can see codebit login page opened in new tab
    and login page is showing
 9. Now you can play with applications.
 
-### Prerequisites Technology and tools:
+## Prerequisites Technology and tools:
 
 1. Make sure you have reactJS >=16+ (current version 17.0.1)
 2. NodeJS (v14.15.1 +)
 3. Javac (compiler)
 4. Python (compiler)
 5. gcc (compiler)
+
+**repo. Link** [codebit-frontend](https://github.com/rambhajansonti/codebit-app)
