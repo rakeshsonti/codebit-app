@@ -101,12 +101,13 @@ Notes Sections where users get notes related to all varieties of data structure 
 1. Open vscode code or any IDE and open a new window and open terminal.
 2. Open a folder and clone the git repo.
 3. “ git clone https://github.com/rambhajansonti/codebit-app”
-4. cd codebit-app
-5. npm install
-6. npm start
-7. After few minutes you can see codebit login page opened in new tab
+4. open folder named "codebit-app" or cd codebit-app
+5. change git branch main to master using the following command “git checkout master”.
+6. npm install
+7. npm start
+8. After few minutes you can see codebit login page opened in new tab
    and login page is showing
-8. Now you can play with applications.
+9. Now you can play with applications.
 
 ### Prerequisites Technology and tools:
 
