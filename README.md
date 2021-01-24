@@ -101,7 +101,7 @@ Notes Sections where users get notes related to all varieties of data structure 
 
 1. Open vscode code or any IDE and open a new window and open terminal.
 2. Open a folder and clone the git repo.
-3. **“_git clone https://github.com/rambhajansonti/codebit-app_”**
+3. **“git clone https://github.com/rambhajansonti/codebit-app”**
 4. open folder named **"codebit-app"** or **cd codebit-app**.
 5. change git branch **main** to **master** using the following command **“_git checkout master_”**.
 6. _npm install_.
