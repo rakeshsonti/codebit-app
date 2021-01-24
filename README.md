@@ -36,7 +36,6 @@
       If the user logs in with the correct password , the user reaches the
       home page. On the home page there are multiple buttons to react to
       problems according to the data structures.
-
       Types of data structure:
 
       Array,LinkedList,Stack,Queue,Tree,Heap,Matrix,String,Searching,Sorting
